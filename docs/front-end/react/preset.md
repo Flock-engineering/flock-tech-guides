@@ -1,5 +1,7 @@
 # Preset
 
+![image](style-guide.png)
+
 Qué es un preset
 
 Un preset es un archivo que se coloca en el proyecto al comienzo de cualquier desarrollo de frontend y que permite “resetear” algunos estilos que vienen por default asociado a determinadas etiquetas de HTML.
