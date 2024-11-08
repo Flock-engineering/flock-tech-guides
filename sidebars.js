@@ -40,7 +40,7 @@ module.exports = {
         label: 'React',
         items: 
         [
-          'front-end/react/react'
+          'front-end/react/preset'
         ],
       }, 
     ],
