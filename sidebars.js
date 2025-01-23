@@ -46,6 +46,7 @@ module.exports = {
     ],
     'Presentaciones': [
       'presentaciones/docusaurus',
+      'presentaciones/charlas-flock',
       'presentaciones/codeium'
     ],
     'Proyectos': [
