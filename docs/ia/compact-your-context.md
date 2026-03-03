@@ -6,6 +6,8 @@ sidebar_label: "Compactá tu contexto"
 
 # Compactá tu contexto
 
+![Context Decay vs Compacted Context](./compact-your-context-banner.png)
+
 Mantener conversaciones largas con una IA deteriora la calidad de sus respuestas. La clave es gestionar activamente el contexto para mantener al modelo enfocado y preciso.
 
 ## El problema

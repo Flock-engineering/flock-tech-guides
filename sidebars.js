@@ -80,7 +80,11 @@ module.exports = {
       type: 'category',
       label: 'IA',
       items: [
-        'ia/compact-your-context',
+        {
+          type: 'category',
+          label: 'Artículos',
+          items: ['ia/compact-your-context'],
+        },
       ],
     },
     {
