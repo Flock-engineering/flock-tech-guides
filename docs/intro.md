@@ -16,6 +16,7 @@ Este sitio centraliza el conocimiento técnico del equipo de ingeniería de **Fl
 | **Development** | Guías de herramientas, style guides y buenas prácticas de desarrollo |
 | **Backend** | Estándares y referencias para los distintos lenguajes y frameworks del equipo |
 | **Front-end** | Convenciones y setups para los distintos frameworks del equipo |
+| **IA** | Guías y buenas prácticas para trabajar con herramientas de inteligencia artificial |
 | **Infraestructura** | Recursos de seguridad y arquitectura cloud |
 | **Proyectos** | Documentación técnica de proyectos internos |
 | **Presentaciones** | Material de charlas y knowledge sharing del equipo |
