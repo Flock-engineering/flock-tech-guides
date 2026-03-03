@@ -164,24 +164,15 @@ El script se ejecuta desde `/tmp/` y se elimina automáticamente al terminar.
 
 ## Instalación rápida: pedíselo a Claude
 
-No necesitás crear el archivo manualmente. Abrí Claude Code en la terminal y pegá este mensaje:
+No necesitás crear el archivo manualmente ni copiar ningún texto.
 
-```
-Instalame el skill word-doc en ~/.claude/skills/word-doc/SKILL.md con las
-siguientes instrucciones:
+1. Descargá el `SKILL.md` con el botón de arriba
+2. Abrí Claude Code en tu terminal
+3. Adjuntá el archivo descargado en el chat y enviá este mensaje:
 
-- Verificar python-docx antes de ejecutar
-- Buscar template.docx en el proyecto y usarlo si existe
-- Pedir detalles si la descripción es vaga
-- Mostrar el outline del documento y esperar confirmación antes de generar
-- Aplicar guía de estilos: Calibri 11pt, paleta azul corporativo (#1F497D),
-  márgenes 3cm izquierdo y 2.54cm resto, interlineado 1.15
-- Generar siempre portada, header con título y footer con número de página
-- Ejecutar el script desde /tmp/ y borrarlo al terminar
-- Informar la ruta absoluta y tamaño del archivo generado
-```
+> *"Instalá este skill en `~/.claude/skills/word-doc/SKILL.md`"*
 
-Claude va a crear el archivo, confirmar la instalación, y el skill quedará listo para usar de inmediato.
+Claude va a leer el archivo adjunto, crearlo en la ruta correcta y confirmar la instalación. El skill queda disponible de inmediato.
 
 ## Nivel de aplicación
 
