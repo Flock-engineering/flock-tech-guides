@@ -6,7 +6,7 @@ sidebar_label: "Skill Creator"
 
 # Claude Skill: Creador de Skills
 
-Meta-skill que guía a Claude para **crear nuevos skills** dentro del proyecto Nomadear, siguiendo la estructura, convenciones de nombres y el proceso de sincronización definidos.
+Meta-skill que guía a Claude para **crear nuevos skills** en cualquier proyecto, siguiendo la estructura, convenciones de nombres y el proceso de sincronización de Claude Code.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/skill-creator/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/skill-creator/SKILL.md` para instalarlo directamente.
@@ -39,7 +39,7 @@ description: >
   Trigger: cuándo activarlo automáticamente
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -55,12 +55,14 @@ allowed-tools: Read, Write, Bash
 
 ## Scopes disponibles
 
+Los scopes definen en qué contexto del proyecto se activa el skill:
+
 | Scope | Descripción |
 |---|---|
 | `root` | Disponible en todo el proyecto |
-| `auth` | Solo contexto de autenticación |
-| `events` | Solo módulo de eventos |
-| `bot` | Solo módulo de bot |
+| `[módulo]` | Solo se activa dentro de ese módulo o carpeta |
+
+> Definí los scopes según la estructura de tu proyecto.
 
 ## Instalación rápida
 

@@ -6,7 +6,7 @@ sidebar_label: "Jest Skill"
 
 # Claude Skill: Testing con Jest
 
-Skill que guía a Claude para escribir tests unitarios y E2E usando **Jest** y **Supertest**, con patrones de mocks, fixtures y estructura de archivos del proyecto Nomadear.
+Skill que guía a Claude para escribir tests unitarios y E2E usando **Jest** y **Supertest**, con patrones de mocks, fixtures y estructura de archivos para proyectos NestJS.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/jest/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/jest/SKILL.md` para instalarlo directamente.

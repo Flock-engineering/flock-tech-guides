@@ -6,7 +6,7 @@ sidebar_label: "Commit Skill"
 
 # Claude Skill: Convenciones de commits
 
-Skill que guía a Claude para escribir mensajes de commit siguiendo el estándar **Conventional Commits** del proyecto Nomadear, con tipos, scopes y reglas definidas.
+Skill que guía a Claude para escribir mensajes de commit siguiendo el estándar **Conventional Commits**, con tipos, scopes y reglas definidas.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/commit/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/commit/SKILL.md` para instalarlo directamente.
@@ -41,16 +41,19 @@ Claude lo invoca automáticamente al detectar intención de:
 | `chore` | Tareas de mantenimiento |
 | `perf` | Mejoras de performance |
 
-## Scopes del proyecto
+## Scopes
 
-| Scope | Módulo |
+Los scopes se definen por proyecto y mapean a los módulos o capas de la aplicación. Ejemplos comunes:
+
+| Scope | Módulo típico |
 |---|---|
 | `auth` | Autenticación y usuarios |
-| `events` | Eventos y modificaciones |
-| `registrations` | Preinscripciones |
-| `dealerships` | Concesionarias |
-| `prisma` | Base de datos |
 | `api` | Endpoints generales |
+| `db` | Base de datos / migraciones |
+| `ui` | Capa de presentación |
+| `config` | Configuración y variables de entorno |
+
+> El SKILL.md incluye la tabla de scopes real del proyecto donde se instala.
 
 ## Instalación rápida
 

@@ -6,7 +6,7 @@ sidebar_label: "Prisma Skill"
 
 # Claude Skill: Prisma ORM
 
-Skill que guía a Claude para trabajar con **Prisma 7** y **PostgreSQL** en el proyecto Nomadear: schema, migraciones, queries, relaciones y transacciones.
+Skill que guía a Claude para trabajar con **Prisma** y **PostgreSQL**: schema, migraciones, queries, relaciones y transacciones.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/prisma/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/prisma/SKILL.md` para instalarlo directamente.
