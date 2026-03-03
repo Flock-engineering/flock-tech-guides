@@ -2,6 +2,7 @@
 id: compact-your-context
 title: "AI Tip: Compactá tu contexto"
 sidebar_label: "Compactá tu contexto"
+image: /flock-tech-guides/img/ia/compact-your-context-banner.png
 ---
 
 # Compactá tu contexto
