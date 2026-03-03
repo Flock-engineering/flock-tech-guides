@@ -1,30 +1,159 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Flock Tech Guides - Custom Styles
+ * Brand colors from Flock logo:
+ *   Dark purple : #3C0A5E
+ *   Medium purple: #8B3DB8
+ *   Orange-red  : #F05023
  */
 
-/* You can override the default Infima variables here. */
+/* ─── Color tokens ─────────────────────────────────────────────── */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --flock-purple-dark:   #3C0A5E;
+  --flock-purple-mid:    #8B3DB8;
+  --flock-orange:        #F05023;
+  --flock-orange-light:  #FF6B42;
+
+  /* Infima primary → dark purple */
+  --ifm-color-primary:          #3C0A5E;
+  --ifm-color-primary-dark:     #330856;
+  --ifm-color-primary-darker:   #2E074E;
+  --ifm-color-primary-darkest:  #23053B;
+  --ifm-color-primary-light:    #4A1272;
+  --ifm-color-primary-lighter:  #551580;
+  --ifm-color-primary-lightest: #6B1E99;
+
+  --ifm-code-font-size: 94%;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-weight: 600;
+  --ifm-navbar-height: 60px;
+  --docusaurus-highlighted-code-line-bg: rgba(240, 80, 35, 0.08);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ─── Dark mode ────────────────────────────────────────────────── */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary:          #C07EE8;
+  --ifm-color-primary-dark:     #B060E0;
+  --ifm-color-primary-darker:   #A44FD8;
+  --ifm-color-primary-darkest:  #8B3DB8;
+  --ifm-color-primary-light:    #D09CF0;
+  --ifm-color-primary-lighter:  #DAB0F4;
+  --ifm-color-primary-lightest: #EDD4FA;
+  --ifm-background-color:       #1A0A26;
+  --ifm-navbar-background-color: #120718;
+  --ifm-sidebar-background:     #1A0A26;
+  --docusaurus-highlighted-code-line-bg: rgba(240, 80, 35, 0.15);
+}
+
+/* ─── Navbar ───────────────────────────────────────────────────── */
+.navbar {
+  border-bottom: 2px solid var(--flock-orange);
+  box-shadow: 0 1px 8px rgba(60, 10, 94, 0.1);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--flock-orange) !important;
+}
+
+/* ─── Sidebar ──────────────────────────────────────────────────── */
+.menu__link--active:not(.menu__link--sublist) {
+  border-left: 3px solid var(--flock-orange);
+  padding-left: calc(var(--ifm-menu-link-padding-horizontal) - 3px);
+  background-color: rgba(240, 80, 35, 0.07);
+  color: var(--flock-purple-dark);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+  color: var(--ifm-color-primary-light);
+  background-color: rgba(240, 80, 35, 0.1);
+}
+
+.menu__link:hover {
+  color: var(--flock-purple-mid);
+}
+
+[data-theme='dark'] .menu__link:hover {
+  color: var(--ifm-color-primary-light);
+}
+
+/* ─── Content headings ─────────────────────────────────────────── */
+.markdown h1 {
+  color: var(--flock-purple-dark);
+  border-bottom: 2px solid var(--flock-orange);
+  padding-bottom: 0.4rem;
+}
+
+[data-theme='dark'] .markdown h1 {
+  color: var(--ifm-color-primary-lightest);
+  border-bottom-color: var(--flock-orange);
+}
+
+.markdown h2 {
+  color: var(--flock-purple-dark);
+}
+
+[data-theme='dark'] .markdown h2 {
+  color: var(--ifm-color-primary-lighter);
+}
+
+/* ─── Links ────────────────────────────────────────────────────── */
+a {
+  color: var(--flock-purple-mid);
+}
+
+a:hover {
+  color: var(--flock-orange);
+  text-decoration: none;
+}
+
+/* ─── Inline code ──────────────────────────────────────────────── */
+code {
+  background-color: rgba(139, 61, 184, 0.08);
+  border: 1px solid rgba(139, 61, 184, 0.15);
+  border-radius: 4px;
+}
+
+[data-theme='dark'] code {
+  background-color: rgba(139, 61, 184, 0.18);
+  border-color: rgba(139, 61, 184, 0.25);
+}
+
+/* ─── Breadcrumbs ──────────────────────────────────────────────── */
+.breadcrumbs__link {
+  color: var(--flock-purple-mid);
+}
+
+/* ─── Table of contents ────────────────────────────────────────── */
+.table-of-contents__link--active {
+  color: var(--flock-orange) !important;
+  font-weight: 600;
+}
+
+/* ─── Pagination ────────────────────────────────────────────────── */
+.pagination-nav__link:hover {
+  border-color: var(--flock-orange);
+}
+
+/* ─── Admonitions — subtle accent ──────────────────────────────── */
+.alert--info {
+  --ifm-alert-border-color: var(--flock-purple-mid);
+}
+
+.alert--warning {
+  --ifm-alert-border-color: var(--flock-orange);
+}
+
+/* ─── Footer ────────────────────────────────────────────────────── */
+.footer {
+  background-color: var(--flock-purple-dark);
+}
+
+.footer__link-item:hover {
+  color: var(--flock-orange);
 }

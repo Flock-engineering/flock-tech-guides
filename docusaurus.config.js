@@ -13,14 +13,14 @@ const config = {
   favicon: 'img/logo-flock.png',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://flock-engineering.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/flock-tech-guides/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Mujics', // Usually your GitHub org/user name.
+  organizationName: 'Flock-engineering', // Usually your GitHub org/user name.
   projectName: 'flock-tech-guides', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
@@ -61,15 +61,17 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Tech Guides Flock',
+        title: '',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Flock Tech Guides',
           src: 'img/logo-completo-flock.png',
+          srcDark: 'img/logo-completo-flock.png',
         },
-        items: [
-        ],
+        items: [],
       },
       footer: {
+        style: 'dark',
+        copyright: `© ${new Date().getFullYear()} Flock Engineering. Built with Docusaurus.`,
       },
 
       prism: {
