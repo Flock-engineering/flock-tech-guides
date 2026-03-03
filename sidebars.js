@@ -78,6 +78,17 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'IA',
+      items: [
+        {
+          type: 'category',
+          label: 'Artículos',
+          items: ['ia/compact-your-context'],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: 'Infrastructure',
       items: [
         {
