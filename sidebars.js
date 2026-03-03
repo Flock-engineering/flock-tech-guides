@@ -85,6 +85,11 @@ module.exports = {
           label: 'Artículos',
           items: ['ia/compact-your-context'],
         },
+        {
+          type: 'category',
+          label: 'Claude Skills',
+          items: ['ia/claude-skills/word-skill'],
+        },
       ],
     },
     {
