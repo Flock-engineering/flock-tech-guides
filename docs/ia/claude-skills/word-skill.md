@@ -10,6 +10,10 @@ Un **Claude Skill** es una instrucción persistente que le dice a Claude Code c�
 
 Este skill automatiza la generación de archivos `.docx` usando Python y la librería `python-docx`, con estilos corporativos, portada, header/footer y soporte de templates.
 
+:::tip Descarga el skill
+<a href="/flock-tech-guides/skills/word-doc/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/word-doc/SKILL.md` para instalarlo directamente.
+:::
+
 ## ¿Cómo se usa?
 
 ```bash
