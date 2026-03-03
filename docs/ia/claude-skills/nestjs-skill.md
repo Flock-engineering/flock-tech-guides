@@ -6,7 +6,7 @@ sidebar_label: "NestJS Skill"
 
 # Claude Skill: Patrones NestJS
 
-Skill que guía a Claude para crear módulos, controllers, services, guards, decorators y pipes siguiendo los patrones del proyecto Nomadear con **NestJS 11**.
+Skill que guía a Claude para crear módulos, controllers, services, guards, decorators y pipes siguiendo las convenciones de **NestJS**.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/nestjs/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nestjs/SKILL.md` para instalarlo directamente.
@@ -21,7 +21,6 @@ Cuando Claude crea o modifica código NestJS, este skill le indica:
 - Cómo crear **decorators** personalizados
 - Cómo usar **pipes** para validación y transformación
 - Comandos de **NestJS CLI** para scaffolding
-- Convenciones específicas del proyecto Nomadear
 
 ## ¿Cuándo se activa?
 

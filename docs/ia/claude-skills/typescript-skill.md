@@ -6,7 +6,7 @@ sidebar_label: "TypeScript Skill"
 
 # Claude Skill: TypeScript estricto
 
-Skill que guía a Claude para escribir código TypeScript con tipado fuerte: DTOs con validación, interfaces, tipos utilitarios y configuración estricta del proyecto Nomadear.
+Skill que guía a Claude para escribir código TypeScript con tipado fuerte: DTOs con validación, interfaces, tipos utilitarios y configuración estricta.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/typescript/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/typescript/SKILL.md` para instalarlo directamente.
@@ -44,11 +44,11 @@ Claude lo invoca automáticamente al detectar:
 ## Patrón DTO
 
 ```typescript
-export class CreateEventDto {
-  @ApiProperty({ example: 'Lanzamiento Q1' })
+export class CreateProductDto {
+  @ApiProperty({ example: 'Notebook Pro' })
   @IsString()
   @IsNotEmpty()
-  title: string;
+  name: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
@@ -56,8 +56,8 @@ export class CreateEventDto {
   description?: string;
 }
 
-// Update DTO reutiliza CreateEventDto
-export class UpdateEventDto extends PartialType(CreateEventDto) {}
+// Update DTO reutiliza CreateProductDto sin repetir campos
+export class UpdateProductDto extends PartialType(CreateProductDto) {}
 ```
 
 ## Instalación rápida
