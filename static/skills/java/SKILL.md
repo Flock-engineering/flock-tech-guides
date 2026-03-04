@@ -1,12 +1,12 @@
 ---
 name: java
 description: >
-  Java moderno con calidad de código, sin duplicación y seguridad de tipos.
+  Java moderno con calidad de código, Lombok estándar y seguridad de tipos.
   Trigger: crear clase Java, refactorizar Java, escribir servicio Java, mejorar calidad Java
 license: MIT
 metadata:
   author: tu-proyecto
-  version: '1.0'
+  version: '1.1'
   scope: [root]
   auto_invoke:
     - 'Crear clase Java'
@@ -14,6 +14,7 @@ metadata:
     - 'Refactorizar Java'
     - 'Mejorar calidad Java'
     - 'Escribir código Java'
+    - 'Usar Lombok'
 allowed-tools: Read, Edit, Write, Glob, Grep, Bash
 ---
 
@@ -23,6 +24,10 @@ allowed-tools: Read, Edit, Write, Glob, Grep, Bash
 
 ### ALWAYS
 
+- Usar Lombok como librería estándar para eliminar boilerplate
+- Usar `@RequiredArgsConstructor` para inyección por constructor — nunca `@Autowired` en campo
+- Usar `@Slf4j` para logging — nunca crear `Logger` manualmente
+- Usar `@Builder` para construcción de objetos con más de 3 parámetros
 - Usar `Optional<T>` como retorno en lugar de `null`
 - Aplicar Single Responsibility: clases < 200 líneas, métodos < 20 líneas
 - Declarar campos inmutables con `final`
@@ -34,19 +39,199 @@ allowed-tools: Read, Edit, Write, Glob, Grep, Bash
 - Usar streams para procesar colecciones en vez de loops imperativos
 - Usar pattern matching con `instanceof` (Java 16+) en vez de casteos explícitos
 - Lanzar excepciones específicas y documentadas, nunca `Exception` o `Throwable` genéricos
-- Usar `Objects.requireNonNull` para precondiciones de parámetros
+- Usar `@NonNull` (Lombok) o `Objects.requireNonNull` para precondiciones de parámetros
 
 ### NEVER
 
+- Usar `@Data` en entidades JPA — causa N+1 con lazy loading e infinite recursion en bidireccionales
+- Usar `@Setter` a nivel de clase en entidades — preferir builder o métodos de dominio
+- Usar `@ToString` sin `exclude` en entidades con relaciones lazy o bidireccionales
+- Usar `@SneakyThrows` para ocultar excepciones que deberían manejarse
+- Crear `Logger` manualmente (`LoggerFactory.getLogger(...)`) — usar `@Slf4j`
+- Inyectar dependencias con `@Autowired` en campo — usar `@RequiredArgsConstructor`
 - Retornar `null` — usar `Optional<T>` o lanzar excepción
 - Usar raw types: `List`, `Map`, `Set` sin parámetro de tipo
-- Capturar excepciones con bloque `catch` vacío o solo con `e.printStackTrace()`
+- Capturar excepciones con `catch` vacío o solo con `e.printStackTrace()`
 - Crear clases con más de una responsabilidad (God classes)
-- Usar estado mutable estático (`static` + no-final)
+- Usar estado mutable estático (`static` + no-`final`)
 - Comparar Strings con `==` (usar `.equals()`)
-- Usar `instanceof` + casteo explícito sin pattern matching
-- Ignorar el resultado de operaciones que retornan valor (ej: `String.replace`)
 - Duplicar lógica entre clases — extraer a clase base, interfaz o utility
+
+---
+
+## Lombok — Librería Estándar
+
+### Constructores
+
+```java
+// ✅ @RequiredArgsConstructor — genera constructor para campos final y @NonNull
+// Es el estándar para inyección de dependencias en Spring Boot
+@Service
+@RequiredArgsConstructor
+public class UserService {
+    private final UserRepository userRepository;  // inyectado por constructor
+    private final UserMapper     userMapper;       // inyectado por constructor
+}
+
+// ✅ @NoArgsConstructor — constructor sin argumentos
+// Requerido por JPA y Jackson para deserialización
+@Entity
+@NoArgsConstructor   // JPA lo necesita
+@AllArgsConstructor  // para tests y factory methods
+public class User { ... }
+
+// @AllArgsConstructor — todos los campos (combinar con factory method)
+```
+
+### Logging
+
+```java
+// ❌ MAL — Logger manual (boilerplate repetido en cada clase)
+public class UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
+}
+
+// ✅ BIEN — @Slf4j crea "log" automáticamente
+@Slf4j
+@Service
+public class UserService {
+    public void create(User user) {
+        log.info("Creating user with email={}", user.getEmail());
+        log.debug("Full user data: {}", user);
+        log.error("Failed to create user: {}", e.getMessage(), e);
+    }
+}
+
+// Para Log4j2: usar @Log4j2
+```
+
+### Getters, Setters y Equals
+
+```java
+// En entidades JPA — control granular (NUNCA @Data)
+@Entity
+@Getter                                   // getters en todos los campos
+@Setter                                   // setters en todos los campos (o a nivel de campo)
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")             // solo el id define igualdad en entidades
+@ToString(exclude = {"password", "orders"}) // excluir sensibles y colecciones lazy
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @Setter(AccessLevel.NONE)  // campo calculado — no exponer setter
+    private String slug;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude   // alternativa por campo — evita N+1 en toString
+    private List<Order> orders;
+}
+
+// En DTOs simples (no entidades) — @Data está bien
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto {
+    private Long   id;
+    private String name;
+    private String email;
+}
+```
+
+### Builder
+
+```java
+// ✅ @Builder — patrón builder sin escribir el builder manualmente
+@Builder
+@Getter
+public class EmailMessage {
+    private final String       to;
+    private final String       subject;
+
+    @Builder.Default  // SIN @Builder.Default el campo sería null en el builder
+    private final String       body = "";
+
+    @Builder.Default
+    private final List<String> cc   = List.of();
+
+    @Builder.Default
+    private final boolean      highPriority = false;
+}
+
+// Uso — igual que builder manual pero sin el boilerplate
+EmailMessage email = EmailMessage.builder()
+    .to("user@example.com")
+    .subject("Bienvenido")
+    .body("Tu cuenta fue creada.")
+    .cc(List.of("admin@example.com"))
+    .build();
+
+// @Builder(toBuilder = true) — crea copia con un campo modificado
+EmailMessage reminder = email.toBuilder()
+    .subject("Recordatorio: " + email.getSubject())
+    .build();
+```
+
+### @SuperBuilder — Builder con Herencia
+
+```java
+// Cuando la clase padre también usa @Builder, usar @SuperBuilder en ambas
+@SuperBuilder
+@Getter
+public abstract class BaseEntity {
+    private final Long   id;
+    private final String createdBy;
+}
+
+@SuperBuilder
+@Getter
+public class Product extends BaseEntity {
+    private final String name;
+    private final double price;
+}
+
+// Uso:
+Product p = Product.builder()
+    .id(1L)
+    .createdBy("admin")
+    .name("Laptop")
+    .price(999.99)
+    .build();
+```
+
+### @With — Copias Inmutables
+
+```java
+// En clases inmutables (alternativa a toBuilder para campos individuales):
+@Value   // equivalente a @Data pero todo final (usar record en Java 16+)
+@With    // genera withXxx(value) que retorna copia con ese campo cambiado
+public class Config {
+    int     timeout;
+    boolean retryEnabled;
+    int     maxRetries;
+}
+
+// Uso:
+Config base    = new Config(5000, false, 0);
+Config withRetry = base.withRetryEnabled(true).withMaxRetries(3);
+```
+
+### @NonNull — Validación de Parámetros
+
+```java
+import lombok.NonNull;
+
+public class UserService {
+    // Lombok lanza NullPointerException con mensaje claro si el parámetro es null
+    public UserResponse create(@NonNull CreateUserRequest request) {
+        // no necesita Objects.requireNonNull manual
+        return userMapper.toResponse(userRepository.save(userMapper.toEntity(request)));
+    }
+}
+```
 
 ---
 
@@ -54,25 +239,27 @@ allowed-tools: Read, Edit, Write, Glob, Grep, Bash
 
 ```java
 // ✅ BIEN — record es conciso, inmutable y genera equals/hashCode/toString
+// En Java 16+, preferir record sobre @Value de Lombok
 public record CreateUserRequest(
     @NotBlank  String   name,
     @Email     String   email,
     @NotNull   UserRole role
 ) {}
 
-// Para respuestas:
+// Para respuestas con factory method desde entidad:
 public record UserResponse(
     Long     id,
     String   name,
     String   email,
     UserRole role
 ) {
-    // Factory method desde entidad — evita duplicar mapping en múltiples lugares
     public static UserResponse from(User user) {
         return new UserResponse(user.getId(), user.getName(), user.getEmail(), user.getRole());
     }
 }
 ```
+
+> **record vs @Value**: en Java 16+ usar `record`. Usar `@Value` solo para compatibilidad con Java < 16 o cuando se necesita herencia.
 
 ---
 
@@ -117,7 +304,6 @@ public record PaginatedResponse<T>(
     long    totalElements,
     int     totalPages
 ) {
-    // Convierte desde Page de Spring Data — evita repetir el mapeo
     public static <T> PaginatedResponse<T> from(Page<T> page) {
         return new PaginatedResponse<>(
             page.getContent(),
@@ -128,9 +314,6 @@ public record PaginatedResponse<T>(
         );
     }
 }
-
-// Uso:
-PaginatedResponse<UserResponse> response = PaginatedResponse.from(usersPage);
 ```
 
 ### Resultado genérico (Success / Failure)
@@ -139,19 +322,19 @@ PaginatedResponse<UserResponse> response = PaginatedResponse.from(usersPage);
 // sealed + record — discriminated union type-safe (Java 17+)
 public sealed interface Result<T> permits Result.Success, Result.Failure {
 
-    record Success<T>(T value) implements Result<T> {}
-    record Failure<T>(String message, String code) implements Result<T> {}
+    record Success<T>(T value)                         implements Result<T> {}
+    record Failure<T>(String message, String code)     implements Result<T> {}
 
-    static <T> Result<T> success(T value)                      { return new Success<>(value); }
-    static <T> Result<T> failure(String message, String code)  { return new Failure<>(message, code); }
+    static <T> Result<T> success(T value)                     { return new Success<>(value); }
+    static <T> Result<T> failure(String message, String code) { return new Failure<>(message, code); }
 
     default boolean isSuccess() { return this instanceof Success<T>; }
 }
 
-// Uso con pattern matching:
+// Uso con pattern matching (Java 21+):
 switch (result) {
-    case Result.Success<User> s  -> log.info("Usuario creado: {}", s.value().getId());
-    case Result.Failure<User> f  -> log.error("Error {}: {}", f.code(), f.message());
+    case Result.Success<User> s -> log.info("Usuario creado: {}", s.value().getId());
+    case Result.Failure<User> f -> log.error("Error {}: {}", f.code(), f.message());
 }
 ```
 
@@ -170,12 +353,13 @@ public interface BaseRepository<T, ID> {
 
 ---
 
-## Service Pattern (Spring Boot)
+## Service Pattern (Spring Boot + Lombok completo)
 
 ```java
 @Service
-@RequiredArgsConstructor   // Lombok — constructor injection sin boilerplate
-@Slf4j
+@RequiredArgsConstructor   // constructor injection automático
+@Slf4j                     // logger "log" disponible
+@Transactional(readOnly = true)  // read-only por defecto, override en escrituras
 public class UserService {
 
     private final UserRepository userRepository;
@@ -187,25 +371,25 @@ public class UserService {
             .orElseThrow(() -> new EntityNotFoundException("User", id));
     }
 
-    @Transactional
-    public UserResponse create(CreateUserRequest request) {
-        // Guard clause — validar precondición al inicio
+    @Transactional    // override de readOnly — escritura
+    public UserResponse create(@NonNull CreateUserRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new ConflictException("Email already in use", "EMAIL_CONFLICT");
         }
 
-        User user = userMapper.toEntity(request);
+        User user  = userMapper.toEntity(request);
         User saved = userRepository.save(user);
-        log.info("User created with id={}", saved.getId());
+        log.info("User created id={} email={}", saved.getId(), saved.getEmail());
         return userMapper.toResponse(saved);
     }
 
     @Transactional
-    public UserResponse update(Long id, UpdateUserRequest request) {
+    public UserResponse update(Long id, @NonNull UpdateUserRequest request) {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("User", id));
 
-        userMapper.updateEntity(user, request);  // mutación controlada en el mapper
+        userMapper.updateEntity(user, request);
+        log.info("User updated id={}", id);
         return userMapper.toResponse(userRepository.save(user));
     }
 }
@@ -251,6 +435,7 @@ boolean anyAdmin  = users.stream().anyMatch(u -> u.getRole() == UserRole.ADMIN);
 
 ```java
 // Jerarquía propia — evita lanzar/capturar Exception genérico
+@Getter
 public class DomainException extends RuntimeException {
     private final String code;
 
@@ -258,8 +443,6 @@ public class DomainException extends RuntimeException {
         super(message);
         this.code = code;
     }
-
-    public String getCode() { return code; }
 }
 
 public class EntityNotFoundException extends DomainException {
@@ -275,17 +458,13 @@ public class ConflictException extends DomainException {
 }
 
 // ❌ MAL
-try {
-    riskyOperation();
-} catch (Exception e) {       // captura todo — oculta bugs
-    e.printStackTrace();
-}
+try { riskyOperation(); } catch (Exception e) { e.printStackTrace(); }
 
 // ✅ BIEN
 try {
     riskyOperation();
 } catch (SpecificException e) {
-    log.error("Error procesando: {}", e.getMessage(), e);
+    log.error("Error procesando operación: {}", e.getMessage(), e);
     throw new DomainException("Error en operación X", "OP_X_ERROR");
 }
 ```
@@ -295,27 +474,23 @@ try {
 ## Guard Clauses — Inputs al Inicio
 
 ```java
-// ❌ MAL — lógica anidada, difícil de leer
+// ❌ MAL — lógica principal enterrada en niveles de if anidados
 public void processOrder(Order order) {
     if (order != null) {
         if (order.getItems() != null && !order.getItems().isEmpty()) {
-            if (order.getTotal() > 0) {
-                // lógica principal enterrada en niveles
-            }
+            if (order.getTotal() > 0) { /* lógica */ }
         }
     }
 }
 
-// ✅ BIEN — fail fast, lógica principal al nivel 0
-public void processOrder(Order order) {
-    Objects.requireNonNull(order, "Order cannot be null");
+// ✅ BIEN — fail fast con @NonNull de Lombok + guard clauses
+public void processOrder(@NonNull Order order) {
     if (order.getItems() == null || order.getItems().isEmpty()) {
         throw new IllegalArgumentException("Order must have at least one item");
     }
     if (order.getTotal() <= 0) {
         throw new IllegalArgumentException("Order total must be positive");
     }
-
     // lógica principal sin anidación
 }
 ```
@@ -325,23 +500,17 @@ public void processOrder(Order order) {
 ## Pattern Matching — Sin Casteos (Java 16+)
 
 ```java
-// ❌ MAL — casteo explícito propenso a errores
-if (obj instanceof String) {
-    String s = (String) obj;
-    System.out.println(s.length());
-}
+// ❌ MAL — casteo explícito
+if (obj instanceof String) { String s = (String) obj; s.length(); }
 
-// ✅ BIEN — pattern matching con instanceof
-if (obj instanceof String s) {
-    System.out.println(s.length());
-}
+// ✅ BIEN — pattern matching
+if (obj instanceof String s) { s.length(); }
 
-// ✅ MEJOR — switch expression (Java 21+)
+// ✅ MEJOR — switch expression con sealed classes (Java 21+)
 String description = switch (shape) {
     case Circle    c -> "Círculo de radio " + c.radius();
     case Rectangle r -> "Rectángulo " + r.width() + "x" + r.height();
     case Triangle  t -> "Triángulo de base " + t.base();
-    // compilador verifica exhaustividad con sealed classes
 };
 ```
 
@@ -350,70 +519,14 @@ String description = switch (shape) {
 ## Constantes — Sin Magic Values
 
 ```java
-// ❌ MAL — magic numbers/strings en la lógica
-if (user.getFailedAttempts() > 5) { ... }
-String cacheKey = "user_" + id;
-
-// ✅ BIEN — constantes nombradas
 public final class UserConstants {
-    private UserConstants() {} // prevenir instanciación
+    private UserConstants() {}
 
-    public static final int      MAX_FAILED_ATTEMPTS  = 5;
-    public static final String   CACHE_KEY_PREFIX     = "user_";
-    public static final Duration SESSION_EXPIRY       = Duration.ofHours(8);
-    public static final int      MAX_NAME_LENGTH      = 100;
+    public static final int      MAX_FAILED_ATTEMPTS = 5;
+    public static final String   CACHE_KEY_PREFIX    = "user_";
+    public static final Duration SESSION_EXPIRY      = Duration.ofHours(8);
+    public static final int      MAX_NAME_LENGTH     = 100;
 }
-
-// Uso:
-if (user.getFailedAttempts() > UserConstants.MAX_FAILED_ATTEMPTS) { ... }
-String cacheKey = UserConstants.CACHE_KEY_PREFIX + id;
-```
-
----
-
-## Builder Pattern (sin Lombok)
-
-```java
-// Cuando record no alcanza (objeto mutable o con validación compleja):
-public class EmailMessage {
-    private final String to;
-    private final String subject;
-    private final String body;
-    private final List<String> cc;
-
-    private EmailMessage(Builder builder) {
-        this.to      = Objects.requireNonNull(builder.to,      "to is required");
-        this.subject = Objects.requireNonNull(builder.subject, "subject is required");
-        this.body    = builder.body;
-        this.cc      = List.copyOf(builder.cc);  // copia inmutable
-    }
-
-    public static Builder builder(String to, String subject) {
-        return new Builder(to, subject);
-    }
-
-    public static final class Builder {
-        private final String       to;
-        private final String       subject;
-        private       String       body = "";
-        private       List<String> cc   = List.of();
-
-        private Builder(String to, String subject) {
-            this.to      = to;
-            this.subject = subject;
-        }
-
-        public Builder body(String body)    { this.body = body; return this; }
-        public Builder cc(List<String> cc)  { this.cc   = cc;   return this; }
-        public EmailMessage build()         { return new EmailMessage(this); }
-    }
-}
-
-// Uso (con Lombok @Builder es equivalente):
-EmailMessage email = EmailMessage.builder("user@example.com", "Bienvenido")
-    .body("Hola, tu cuenta fue creada.")
-    .cc(List.of("admin@example.com"))
-    .build();
 ```
 
 ---
@@ -445,9 +558,9 @@ mvn checkstyle:check
 mvn spotless:apply
 ./gradlew spotlessApply
 
-# Ver dependencias desactualizadas
-mvn versions:display-dependency-updates
-./gradlew dependencyUpdates
+# Ver qué genera Lombok (delomboked)
+mvn lombok:delombok
+./gradlew delombok
 
 # Ejecutar aplicación Spring Boot
 mvn spring-boot:run
@@ -460,9 +573,30 @@ mvn spring-boot:run
 
 Adaptá esta sección a las convenciones de tu proyecto:
 
-- Versión de Java: 17+ (LTS recomendado) o 21+ para virtual threads
+- Versión de Java: 17+ (LTS recomendado) o 21+ para virtual threads y pattern matching completo
 - Framework: Spring Boot 3.x / Quarkus / Micronaut / Java puro
 - ORM: Spring Data JPA / Hibernate / jOOQ / JDBC Template
-- Lombok habilitado: `@RequiredArgsConstructor`, `@Slf4j`, `@Builder`, `@Value`
+- **Lombok**: siempre habilitado — agregar dependencia y plugin en pom.xml / build.gradle
 - Testing: JUnit 5 + Mockito + AssertJ
 - Build tool: Maven o Gradle (adaptar comandos)
+
+### Dependencia Lombok (Maven)
+
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.34</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+### Dependencia Lombok (Gradle)
+
+```groovy
+compileOnly 'org.projectlombok:lombok:1.18.34'
+annotationProcessor 'org.projectlombok:lombok:1.18.34'
+// Para tests:
+testCompileOnly 'org.projectlombok:lombok:1.18.34'
+testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+```
