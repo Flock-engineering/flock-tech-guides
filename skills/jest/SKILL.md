@@ -5,7 +5,7 @@ description: >
   Trigger: escribir tests unitarios, tests E2E, mocks, fixtures
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:

@@ -5,7 +5,7 @@ description: >
   Trigger: documentar endpoints, agregar ejemplos, configurar auth en docs
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -195,8 +195,8 @@ La configuración está en `src/main.ts`:
 
 ```typescript
 const config = new DocumentBuilder()
-  .setTitle('Nomadear API')
-  .setDescription('API para gestión de eventos')
+  .setTitle('Mi API')
+  .setDescription('Descripción de la API del proyecto')
   .setVersion('1.0')
   .addBearerAuth()
   .build();

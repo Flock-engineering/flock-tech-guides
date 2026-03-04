@@ -5,7 +5,7 @@ description: >
   Trigger: crear tarjeta jira, generar tickets, documentar feature para jira
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -55,7 +55,7 @@ Genera estructuras de tarjetas Jira a partir de commits de git.
 ### Epic (Feature grande)
 
 ```
-Proyecto: NOMADEAR
+Proyecto: TU-PROYECTO
 Tipo: Epic
 Título: [Módulo] Nombre descriptivo de la feature
 
@@ -68,8 +68,8 @@ Breve descripción de la funcionalidad.
 - Qué NO incluye
 
 ## Stories relacionadas
-- NOMADEAR-XXX: Story 1
-- NOMADEAR-XXX: Story 2
+- TU-PROYECTO-XXX: Story 1
+- TU-PROYECTO-XXX: Story 2
 
 Labels: backend, [módulo]
 ```
@@ -77,10 +77,10 @@ Labels: backend, [módulo]
 ### Story (Feature individual)
 
 ```
-Proyecto: NOMADEAR
+Proyecto: TU-PROYECTO
 Tipo: Story
 Título: [Módulo] Acción específica
-Epic Link: NOMADEAR-XXX (si aplica)
+Epic Link: TU-PROYECTO-XXX (si aplica)
 
 Descripción:
 ## Contexto
@@ -105,7 +105,7 @@ Story Points: X
 ### Bug
 
 ```
-Proyecto: NOMADEAR
+Proyecto: TU-PROYECTO
 Tipo: Bug
 Título: [Módulo] Descripción del bug corregido
 Prioridad: High
@@ -129,10 +129,10 @@ Labels: backend, bug, [módulo]
 ### Sub-task
 
 ```
-Proyecto: NOMADEAR
+Proyecto: TU-PROYECTO
 Tipo: Sub-task
 Título: [Acción] Descripción corta
-Parent: NOMADEAR-XXX
+Parent: TU-PROYECTO-XXX
 
 Descripción:
 Detalle de la subtarea.
@@ -165,9 +165,9 @@ git log --oneline | grep "^.*fix"
 
 ```
 8deed6a feat(docs): implementar arquitectura de agentes con skills
-b84f9f5 feat(events): implementar sistema completo de modificaciones
-460068d refactor(dealerships): eliminar endpoint duplicado
-26246c8 feat(dealerships): agregar módulo de concesionarias
+b84f9f5 feat(users): implementar sistema completo de perfil de usuario
+460068d refactor(api): eliminar endpoint duplicado de búsqueda
+26246c8 feat(auth): agregar módulo de autenticación JWT
 ```
 
 ### Output: Tarjetas Jira
@@ -176,48 +176,48 @@ b84f9f5 feat(events): implementar sistema completo de modificaciones
 
 ```
 Tipo: Epic
-Título: [Backend] Sistema de eventos y concesionarias
+Título: [Backend] Autenticación y perfiles de usuario
 Descripción:
 ## Resumen
-Implementación del sistema de gestión de eventos con modificaciones,
-estados y módulo de concesionarias.
+Implementación del sistema de autenticación JWT y gestión
+de perfiles de usuario con roles y permisos.
 
 ## Stories
-- Sistema de modificaciones de eventos
-- Módulo de concesionarias
+- Sistema de autenticación JWT
+- Módulo de perfiles de usuario
 - Arquitectura de agentes
 
-Labels: backend, events, dealerships
+Labels: backend, auth, users
 ```
 
 **Story 1:**
 
 ```
 Tipo: Story
-Título: [Events] Sistema de modificaciones y estados
-Epic: [Backend] Sistema de eventos y concesionarias
+Título: [Auth] Sistema de autenticación JWT
+Epic: [Backend] Autenticación y perfiles de usuario
 
 Descripción:
 ## Contexto
-Los eventos necesitan un historial de cambios y estados controlados.
+El sistema necesita autenticación segura con roles diferenciados.
 
 ## Implementación
-- Estados: ACTIVE, SUSPENDED, CANCELLED
-- Acciones: EDITED, RESCHEDULED, SUSPENDED, RESTORED, CANCELLED
-- Tabla EventModification para auditoría
-- Endpoints: /reschedule, /suspend, /restore, /history
+- Login con email/password y JWT
+- Roles: ADMIN, USER
+- Guards: JwtAuthGuard, RolesGuard
+- Endpoints: /auth/login, /auth/refresh
 
 ## Archivos
-- src/events/events.service.ts
-- src/events/events.controller.ts
-- prisma/schema.prisma
+- src/auth/auth.service.ts
+- src/auth/auth.controller.ts
+- src/auth/jwt.strategy.ts
 
 ## Criterios de Aceptación
-- [ ] Suspender evento requiere justificación
-- [ ] Historial muestra quién hizo cada cambio
-- [ ] No se pueden inscribir a eventos suspendidos
+- [ ] Login retorna access_token válido
+- [ ] Token expira correctamente
+- [ ] Endpoints protegidos rechazan requests sin token
 
-Labels: backend, events
+Labels: backend, auth
 Story Points: 5
 ```
 
@@ -225,23 +225,24 @@ Story Points: 5
 
 ```
 Tipo: Story
-Título: [Dealerships] Módulo de concesionarias
-Epic: [Backend] Sistema de eventos y concesionarias
+Título: [Users] Módulo de perfiles de usuario
+Epic: [Backend] Autenticación y perfiles de usuario
 
 Descripción:
 ## Contexto
-Se necesita gestionar las concesionarias para multi-tenancy.
+Se necesita gestionar los perfiles de usuario con roles.
 
 ## Implementación
-- Modelo Dealership con nombre, provincia, ciudad, trademark
-- Endpoint público GET /dealerships
-- Relación con Users y Events
+- Modelo User con nombre, email, rol
+- Endpoint GET /users/me para perfil propio
+- Relación con roles y permisos
 
 ## Criterios de Aceptación
-- [ ] Listar concesionarias sin autenticación
-- [ ] Unique constraint nombre + provincia
+- [ ] Usuario puede ver su propio perfil
+- [ ] Admin puede listar todos los usuarios
+- [ ] Email único por usuario
 
-Labels: backend, dealerships
+Labels: backend, users
 Story Points: 3
 ```
 
@@ -264,9 +265,7 @@ Story Points: 3
 | `backend`       | Cambios en el backend       |
 | `frontend`      | Cambios en el frontend      |
 | `auth`          | Relacionado a autenticación |
-| `events`        | Módulo de eventos           |
-| `registrations` | Preinscripciones            |
-| `dealerships`   | Concesionarias              |
+| `feature`       | Nueva funcionalidad         |
 | `bug`           | Corrección de error         |
 | `tech-debt`     | Deuda técnica               |
 | `documentation` | Documentación               |
