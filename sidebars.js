@@ -98,6 +98,7 @@ module.exports = {
             'ia/claude-skills/skill-creator-skill',
             'ia/claude-skills/swagger-skill',
             'ia/claude-skills/typescript-skill',
+            'ia/claude-skills/java-skill',
             {
               type: 'category',
               label: 'N8N',
