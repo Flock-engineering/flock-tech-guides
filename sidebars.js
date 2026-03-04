@@ -100,6 +100,13 @@ module.exports = {
             'ia/claude-skills/typescript-skill',
             {
               type: 'category',
+              label: 'N8N',
+              items: [
+                'ia/claude-skills/n8n-workflow-skill',
+              ],
+            },
+            {
+              type: 'category',
               label: 'Proyectos',
               items: [
                 {
