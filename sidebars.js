@@ -89,21 +89,98 @@ module.exports = {
           type: 'category',
           label: 'Claude Skills',
           items: [
-            'ia/claude-skills/word-skill',
-            'ia/claude-skills/commit-skill',
-            'ia/claude-skills/jest-skill',
-            'ia/claude-skills/jira-skill',
-            'ia/claude-skills/nestjs-skill',
-            'ia/claude-skills/prisma-skill',
-            'ia/claude-skills/skill-creator-skill',
-            'ia/claude-skills/swagger-skill',
-            'ia/claude-skills/typescript-skill',
-            'ia/claude-skills/java-skill',
+            {
+              type: 'category',
+              label: 'Word Doc',
+              items: [
+                'ia/claude-skills/word-skill',
+                'ia/claude-skills/word-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Commit',
+              items: [
+                'ia/claude-skills/commit-skill',
+                'ia/claude-skills/commit-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Jest',
+              items: [
+                'ia/claude-skills/jest-skill',
+                'ia/claude-skills/jest-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Jira',
+              items: [
+                'ia/claude-skills/jira-skill',
+                'ia/claude-skills/jira-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'NestJS',
+              items: [
+                'ia/claude-skills/nestjs-skill',
+                'ia/claude-skills/nestjs-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Prisma',
+              items: [
+                'ia/claude-skills/prisma-skill',
+                'ia/claude-skills/prisma-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Skill Creator',
+              items: [
+                'ia/claude-skills/skill-creator-skill',
+                'ia/claude-skills/skill-creator-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Swagger',
+              items: [
+                'ia/claude-skills/swagger-skill',
+                'ia/claude-skills/swagger-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'TypeScript',
+              items: [
+                'ia/claude-skills/typescript-skill',
+                'ia/claude-skills/typescript-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Java',
+              items: [
+                'ia/claude-skills/java-skill',
+                'ia/claude-skills/java-skill-raw',
+              ],
+            },
             {
               type: 'category',
               label: 'N8N',
               items: [
-                'ia/claude-skills/n8n-workflow-skill',
+                {
+                  type: 'category',
+                  label: 'N8N Workflow',
+                  items: [
+                    'ia/claude-skills/n8n-workflow-skill',
+                    'ia/claude-skills/n8n-workflow-skill-raw',
+                  ],
+                },
               ],
             },
             {
@@ -114,11 +191,46 @@ module.exports = {
                   type: 'category',
                   label: 'Nomadear',
                   items: [
-                    'ia/claude-skills/nomadear-api-skill',
-                    'ia/claude-skills/nomadear-auth-skill',
-                    'ia/claude-skills/nomadear-bot-skill',
-                    'ia/claude-skills/nomadear-events-skill',
-                    'ia/claude-skills/nomadear-registrations-skill',
+                    {
+                      type: 'category',
+                      label: 'API',
+                      items: [
+                        'ia/claude-skills/nomadear-api-skill',
+                        'ia/claude-skills/nomadear-api-skill-raw',
+                      ],
+                    },
+                    {
+                      type: 'category',
+                      label: 'Auth',
+                      items: [
+                        'ia/claude-skills/nomadear-auth-skill',
+                        'ia/claude-skills/nomadear-auth-skill-raw',
+                      ],
+                    },
+                    {
+                      type: 'category',
+                      label: 'Bot',
+                      items: [
+                        'ia/claude-skills/nomadear-bot-skill',
+                        'ia/claude-skills/nomadear-bot-skill-raw',
+                      ],
+                    },
+                    {
+                      type: 'category',
+                      label: 'Events',
+                      items: [
+                        'ia/claude-skills/nomadear-events-skill',
+                        'ia/claude-skills/nomadear-events-skill-raw',
+                      ],
+                    },
+                    {
+                      type: 'category',
+                      label: 'Registrations',
+                      items: [
+                        'ia/claude-skills/nomadear-registrations-skill',
+                        'ia/claude-skills/nomadear-registrations-skill-raw',
+                      ],
+                    },
                   ],
                 },
               ],
