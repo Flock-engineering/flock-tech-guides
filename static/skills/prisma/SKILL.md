@@ -5,7 +5,7 @@ description: >
   Trigger: modificar schema, crear migraciones, escribir queries, seeders
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:

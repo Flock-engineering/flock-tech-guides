@@ -5,7 +5,7 @@ description: >
   Trigger: crear interfaces, tipos, DTOs, refactorizar tipado
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -197,6 +197,24 @@ export type EntityResponse = Pick<Entity, 'id' | 'name' | 'status'>;
 
 ---
 
+## Commands
+
+```bash
+# Verificar tipado sin compilar
+npx tsc --noEmit
+
+# Compilar el proyecto
+npm run build
+
+# Linting con ESLint
+npm run lint
+
+# Linting con auto-fix
+npm run lint -- --fix
+```
+
+---
+
 ## Project Config
 
 El proyecto usa:
@@ -204,4 +222,4 @@ El proyecto usa:
 - `tsconfig.json` con `strict: true`
 - ES2023 target
 - Path aliases: `@/*` → `src/*` (si configurado)
-- Decorators habilitados
+- Decorators habilitados (`experimentalDecorators: true`, `emitDecoratorMetadata: true`)

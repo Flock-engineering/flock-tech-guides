@@ -5,7 +5,7 @@ description: >
   Trigger: crear nueva skill, agregar skill al proyecto
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -42,7 +42,7 @@ license: MIT
 metadata:
   author: nomadear
   version: '1.0'
-  scope: [root] # o [root, auth, events]
+  scope: [root] # o [root, modulo1, modulo2]
   auto_invoke:
     - 'Acción que activa la skill'
     - 'Otra acción'
@@ -102,24 +102,25 @@ Esto actualiza automáticamente las tablas de auto-invoke en AGENTS.md.
 
 ## Scopes Disponibles
 
-| Scope    | AGENTS.md Afectado      |
-| -------- | ----------------------- |
-| `root`   | `/AGENTS.md`            |
-| `auth`   | `/src/auth/AGENTS.md`   |
-| `events` | `/src/events/AGENTS.md` |
+| Scope      | AGENTS.md Afectado           |
+| ---------- | ---------------------------- |
+| `root`     | `/AGENTS.md`                 |
+| `[módulo]` | `/src/[módulo]/AGENTS.md`    |
 
 Una skill puede tener múltiples scopes:
 
 ```yaml
-scope: [root, auth, events]
+scope: [root, auth, users]
 ```
+
+> Definí los scopes según la estructura de carpetas de tu proyecto.
 
 ---
 
 ## Convenciones de Naming
 
 - **Skills genéricas**: nombre de tecnología (ej: `nestjs`, `prisma`)
-- **Skills del proyecto**: prefijo `nomadear-` (ej: `nomadear-auth`)
+- **Skills del proyecto**: prefijo con nombre del proyecto (ej: `mi-proyecto-auth`)
 - **Skills meta**: nombre descriptivo (ej: `commit`, `skill-creator`)
 
 ---

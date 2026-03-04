@@ -5,7 +5,7 @@ description: >
   Trigger: crear módulos, controllers, services, guards, decorators, pipes
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -191,9 +191,9 @@ nest g resource {name}
 
 ## Project-Specific Notes
 
-En este proyecto:
+Adaptá esta sección a las convenciones de tu proyecto:
 
 - Todos los módulos se registran en `src/app.module.ts`
-- Usar `PrismaService` para acceso a DB (inyectar desde `PrismaModule`)
-- Guards de auth: `JwtAuthGuard`, `RolesGuard`
-- Decorators de roles: `@Roles('ADMIN', 'ASESOR')`
+- Usar el servicio de DB del proyecto (ej: `PrismaService`, `TypeOrmService`)
+- Definir guards de autenticación del proyecto (ej: `JwtAuthGuard`)
+- Definir decorators de roles según la lógica de negocio (ej: `@Roles('ADMIN', 'USER')`)
