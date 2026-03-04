@@ -1,11 +1,11 @@
 ---
 name: commit
 description: >
-  Convenciones de commits para Nomadear.
+  Convenciones de commits con Conventional Commits.
   Trigger: hacer commit, escribir mensaje de commit, preparar cambios
 license: MIT
 metadata:
-  author: nomadear
+  author: tu-proyecto
   version: '1.0'
   scope: [root]
   auto_invoke:
@@ -42,29 +42,32 @@ allowed-tools: Bash
 
 ## Scopes
 
-| Scope           | Módulo                   |
-| --------------- | ------------------------ |
-| `auth`          | Autenticación y usuarios |
-| `events`        | Eventos y modificaciones |
-| `registrations` | Preinscripciones         |
-| `dealerships`   | Concesionarias           |
-| `prisma`        | Base de datos            |
-| `api`           | Endpoints generales      |
+Definí los scopes según los módulos de tu proyecto. Ejemplos comunes:
+
+| Scope      | Módulo                   |
+| ---------- | ------------------------ |
+| `auth`     | Autenticación y usuarios |
+| `api`      | Endpoints generales      |
+| `prisma`   | Base de datos            |
+| `core`     | Lógica central           |
+| `ui`       | Interfaz de usuario      |
+
+> Adaptá esta tabla a los módulos de tu proyecto.
 
 ## Ejemplos
 
 ```bash
 # Nueva funcionalidad
-feat(events): agregar endpoint de historial de modificaciones
+feat(auth): agregar endpoint de login con JWT
 
 # Bug fix
-fix(auth): corregir validación de dealershipId para ASESOR
+fix(api): corregir validación de parámetros en query
 
 # Refactor
-refactor(registrations): extraer lógica de validación a método privado
+refactor(core): extraer lógica de validación a método privado
 
 # Tests
-test(events): agregar tests E2E para reschedule
+test(auth): agregar tests E2E para refresh token
 
 # Docs
 docs: actualizar README con nuevos endpoints

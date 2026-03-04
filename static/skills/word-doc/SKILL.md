@@ -1,12 +1,45 @@
 ---
 name: word-doc
-description: Genera un documento Word (.docx). Úsalo SOLO cuando el usuario mencione explícitamente Word, .docx, o documento de texto enriquecido.
+description: >
+  Genera un documento Word (.docx) con estilo profesional.
+  Trigger: crear documento Word, generar .docx, documento de texto enriquecido
 argument-hint: "[descripción del documento]"
+license: MIT
+metadata:
+  author: flock
+  version: '1.0'
+  scope: [root]
+  auto_invoke:
+    - 'Crear documento Word'
+    - 'Generar .docx'
+    - 'Generar informe Word'
 allowed-tools: Bash, Read, Write, Glob
 context: fork
 ---
 
 # Skill: Generar documento Word
+
+## Critical Rules
+
+### ALWAYS
+
+- Verificar si existe `template.docx` antes de crear desde cero
+- Mostrar el outline al usuario y esperar confirmación antes de generar
+- Usar `python3`, nunca `python`
+- Guardar el script temporal siempre en `/tmp/`
+- Incluir portada, header y footer en todos los documentos
+- Eliminar el script temporal después de ejecutarlo
+- Aplicar la guía de estilos completa (paleta, tipografía, márgenes)
+
+### NEVER
+
+- Continuar al paso 5 sin confirmación explícita del paso 4
+- Guardar scripts temporales en el directorio del proyecto
+- Omitir portada, header o footer
+- Cambiar la paleta de colores sin que el usuario lo pida
+- Usar `python` en vez de `python3`
+
+---
 
 ## 1. Verificar python-docx
 
