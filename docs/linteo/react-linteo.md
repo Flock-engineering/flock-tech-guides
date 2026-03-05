@@ -6,7 +6,7 @@ sidebar_label: React
 
 # React — Estándares y Linteo
 
-React usa **ESLint** como linter y **Prettier** como formateador. Ambos se integran en **Visual Studio Code**.
+En Flock usamos **ESLint** como linter y **Prettier** como formateador en proyectos React, integrados en **Visual Studio Code**. La instalación es manual y permite elegir los plugins específicos para el proyecto.
 
 ---
 
@@ -20,17 +20,30 @@ Instalar ESLint con el plugin de React en la terminal del proyecto:
 npm install eslint eslint-plugin-react --save-dev
 ```
 
-Este comando instala ESLint con soporte para JSX y React.
+Esto instala ESLint con soporte para JSX, React hooks y buenas prácticas específicas de React. Crear un archivo `.eslintrc.json` en la raíz del proyecto con la configuración base:
+
+```json
+{
+  "extends": [
+    "plugin:react/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
+```
 
 ---
 
 ### Extensión ESLint en VSCode
 
-La extensión ESLint en VSCode provee feedback constante mientras escribís código.
+La extensión ESLint en VSCode muestra los errores de linteo en tiempo real directamente en el editor, sin necesidad de correr comandos.
 
 **Instalación:**
 
-1. Ir a **Extensions** en el sidebar
+1. Ir a **Extensions** en el sidebar (`Ctrl+Shift+X`)
 2. Buscar **ESLint** → **Install**
 
 [![ESLint VSCode Extension](https://i.postimg.cc/8CXQZ4FD/Captura-de-pantalla-2024-07-11-a-la-s-17-14-04.png)](https://postimg.cc/gwhTJvqB)
@@ -41,14 +54,12 @@ La extensión ESLint en VSCode provee feedback constante mientras escribís cód
 
 ### Prettier
 
-Usamos **Prettier** como formateador opinado. Aplicamos su configuración por defecto sin modificar.
-
-Podés leer su filosofía de estilo [aquí](https://prettier.io/docs/en/rationale).
+Usamos **Prettier** como formateador opinado. Aplicamos su configuración por defecto sin modificar: no hace falta crear un `.prettierrc`. Podés leer su filosofía de estilo [aquí](https://prettier.io/docs/en/rationale).
 
 **Instalación:**
 
-1. Ir a **Extensions** en el sidebar
-2. Buscar **Prettier** → **Install**
+1. Ir a **Extensions** en el sidebar (`Ctrl+Shift+X`)
+2. Buscar **Prettier - Code formatter** → **Install**
 
 [![Prettier VSCode Extension](https://i.postimg.cc/SNZXBmDZ/Captura-de-pantalla-2024-07-15-a-la-s-12-45-36.png)](https://postimg.cc/Ln16fFdf)
 
@@ -58,10 +69,25 @@ Podés leer su filosofía de estilo [aquí](https://prettier.io/docs/en/rational
 
 ---
 
-### Prettier vs ESLint — Resolución de conflictos
+### Resolver conflictos entre Prettier y ESLint
 
-ESLint puede tener reglas que conflictúen con Prettier. En materia de **formateo**, siempre prevalece Prettier. Para evitar conflictos, deshabilitamos las reglas de formato de ESLint:
+ESLint incluye algunas reglas de estilo que pueden contradecir a Prettier. Para que prevalezca siempre Prettier en todo lo que sea formato, hay que deshabilitar esas reglas de ESLint instalando `eslint-config-prettier`:
+
+```bash
+npm install eslint-config-prettier --save-dev
+```
+
+Luego agregar `"prettier"` al final del array `extends` en `.eslintrc.json`:
+
+```json
+{
+  "extends": [
+    "plugin:react/recommended",
+    "prettier"
+  ]
+}
+```
+
+El `"prettier"` al final desactiva todas las reglas de ESLint que conflictúen con el formato de Prettier. Explicación completa: [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 
 [![ESLint Prettier Config](https://i.postimg.cc/6QBY3gjP/Captura-de-pantalla-2024-07-15-a-la-s-11-24-30.png)](https://postimg.cc/18Yp7CZ0)
-
-Explicación completa: [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
