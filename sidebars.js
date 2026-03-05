@@ -181,6 +181,14 @@ module.exports = {
             },
             {
               type: 'category',
+              label: 'NetCore',
+              items: [
+                'ia/claude-skills/netcore-skill',
+                'ia/claude-skills/netcore-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
               label: 'N8N',
               items: [
                 {
