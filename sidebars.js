@@ -9,10 +9,20 @@ module.exports = {
       type: 'category',
       label: 'Development',
       items: [
-        'development/style-guide',
         'development/postman-use-guide',
         'development/redhat-dependency-analitycs/redhat-dependency-analitycs',
         'development/cursor/cursor-guide',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Estándares y Linteo - Flock Style',
+      items: [
+        'linteo/java-linteo',
+        'linteo/netcore-linteo',
+        'linteo/angular-linteo',
+        'linteo/react-linteo',
+        'linteo/nodejs-linteo',
       ],
     },
     {
