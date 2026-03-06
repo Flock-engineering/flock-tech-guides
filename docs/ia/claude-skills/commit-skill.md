@@ -6,7 +6,7 @@ sidebar_label: "Commit Skill"
 
 # Claude Skill: Convenciones de commits
 
-Skill que guía a Claude para escribir mensajes de commit siguiendo el estándar **Conventional Commits**, con tipos, scopes y reglas definidas.
+Skill que guía a Claude para escribir mensajes de commit siguiendo el estándar **Conventional Commits**, con flujo de PR obligatorio, commits atómicos y reglas de seguridad sobre qué commitear.
 
 :::tip Descarga el skill
 <a href="/flock-tech-guides/skills/commit/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/commit/SKILL.md` para instalarlo directamente.
@@ -14,19 +14,24 @@ Skill que guía a Claude para escribir mensajes de commit siguiendo el estándar
 
 ## ¿Qué hace?
 
-Cuando Claude hace un commit, este skill le indica:
+Cuando Claude hace o prepara un commit, este skill le indica:
 
 - El formato correcto: `<type>(<scope>): <description>`
-- Qué tipo usar según el cambio (`feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`)
-- El scope correspondiente al módulo afectado (`auth`, `events`, `registrations`, `prisma`, etc.)
+- Qué tipo usar según el cambio (`feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`)
+- Cómo documentar **breaking changes** con `!` o el footer `BREAKING CHANGE:`
+- El scope correspondiente al módulo afectado — inferido desde `git diff --name-only`
 - Las reglas de estilo: primera letra minúscula, sin punto final, máximo 72 caracteres
-- Cómo manejar fallos del pre-commit hook (Husky + lint-staged)
+- Que el body debe explicar el **por qué**, no solo el qué
+- Que los commits deben ser **atómicos** — un propósito lógico por commit
+- El **flujo de PR obligatorio** — nunca pushear directo a `main` o `master`
+- Cómo agregar archivos de forma **selectiva** — nunca `git add .` a ciegas
+- Cómo manejar fallos del pre-commit hook
 
 ## ¿Cuándo se activa?
 
 Claude lo invoca automáticamente al detectar intención de:
 
-> *"Hacer commit"*, *"Escribir mensaje de commit"*, *"Preparar PR"*
+> *"Hacer commit"*, *"Escribir mensaje de commit"*, *"Preparar PR"*, *"Pushear cambios"*
 
 ## Tipos soportados
 
@@ -36,24 +41,33 @@ Claude lo invoca automáticamente al detectar intención de:
 | `fix` | Corrección de bug |
 | `docs` | Documentación |
 | `style` | Formato (no afecta lógica) |
-| `refactor` | Refactorización |
-| `test` | Agregar/modificar tests |
-| `chore` | Tareas de mantenimiento |
+| `refactor` | Refactorización sin cambio de comportamiento |
+| `test` | Agregar o modificar tests |
+| `chore` | Tareas de mantenimiento (deps, config, scripts) |
 | `perf` | Mejoras de performance |
+| `ci` | Cambios en pipelines de CI/CD |
+| `build` | Cambios en el sistema de build o dependencias |
 
-## Scopes
+## Flujo de trabajo
 
-Los scopes se definen por proyecto y mapean a los módulos o capas de la aplicación. Ejemplos comunes:
+El skill impone un flujo de PR explícito:
 
-| Scope | Módulo típico |
+1. Trabajar en una **rama feature** — nunca directamente en `main` o `master`
+2. Revisar con `git status` + `git diff` antes de stagear
+3. Agregar archivos **selectivamente** — `git add <archivo>`, no `git add .`
+4. Commit con mensaje descriptivo siguiendo Conventional Commits
+5. Push a la rama remota
+6. **Crear PR** con descripción, asignar revisor y esperar aprobación
+
+## Reglas de seguridad
+
+| Regla | Descripción |
 |---|---|
-| `auth` | Autenticación y usuarios |
-| `api` | Endpoints generales |
-| `db` | Base de datos / migraciones |
-| `ui` | Capa de presentación |
-| `config` | Configuración y variables de entorno |
-
-> El SKILL.md incluye la tabla de scopes real del proyecto donde se instala.
+| **Sin `git add .`** | Puede incluir `.env`, binarios o archivos generados sin querer |
+| **Sin push directo a `main`** | Aunque tengas permisos — siempre por PR |
+| **Sin secrets** | `.env`, tokens, credenciales nunca en el repo |
+| **Sin `--no-verify`** | No saltear hooks — existen para proteger la calidad |
+| **Sin `--force` en ramas compartidas** | Coordinar con el equipo antes |
 
 ## Instalación rápida
 
