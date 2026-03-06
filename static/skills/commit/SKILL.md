@@ -87,6 +87,7 @@ Inferí el scope del módulo o directorio principal afectado. Adaptá esta tabla
 - Hacer `git status` antes de agregar para verificar qué se va a commitear
 - **Crear PR** hacia la rama protegida — nunca pushear directo a `main` o `master`
 - Solicitar **revisión de al menos un compañero** antes de mergear
+- Al crear un PR, **mostrar siempre un resumen** con: link al PR, rama origen → destino, y qué cambió
 
 ### NEVER
 
@@ -124,6 +125,11 @@ git push <remote> feat/nombre-feature
 # - Asignar revisor
 # - Completar descripción: qué cambió y por qué
 # - Esperar aprobación antes de mergear
+
+# 7. Mostrar resumen del PR al usuario:
+# ✅ PR creado: https://github.com/org/repo/pull/123
+# feat/nombre-feature → main
+# Qué cambió: [resumen en 1-2 líneas]
 ```
 
 ## Ejemplos
