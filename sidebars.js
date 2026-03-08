@@ -165,6 +165,14 @@ module.exports = {
             },
             {
               type: 'category',
+              label: 'State Machine',
+              items: [
+                'ia/claude-skills/state-machine-skill',
+                'ia/claude-skills/state-machine-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
               label: 'TypeScript',
               items: [
                 'ia/claude-skills/typescript-skill',
