@@ -138,6 +138,16 @@ def set_margins(doc, top=2.54, bottom=2.54, left=3.0, right=2.54):
         section.left_margin   = Cm(left)
         section.right_margin  = Cm(right)
 
+# ── PAGE SIZE ─────────────────────────────────────────────────────────────────
+# Default: A4 (Argentina, Europa y resto del mundo).
+# US Letter solo para documentos destinados a audiencias norteamericanas.
+#   A4:        Cm(21.0)  x Cm(29.7)   ← default
+#   US Letter: Cm(21.59) x Cm(27.94)
+def set_page_size(doc, width=Cm(21.0), height=Cm(29.7)):
+    for section in doc.sections:
+        section.page_width  = width
+        section.page_height = height
+
 # ── HELPERS DE ESTILO ────────────────────────────────────────────────────────
 def style_run(run, size=SIZE_BODY, color=COLOR_TEXT, bold=False, italic=False):
     run.font.name      = FONT_BODY
@@ -180,15 +190,19 @@ def add_heading(doc, text, level=1):
     return p
 
 # ── TABLA ────────────────────────────────────────────────────────────────────
+# ⚠️  Compatibilidad: siempre usar WidthType.DXA para anchos de columna.
+#     WidthType.PERCENTAGE falla en Google Docs, SharePoint y Word Online.
 def add_styled_table(doc, headers, rows):
     table = doc.add_table(rows=1, cols=len(headers))
     table.style = "Table Grid"
+    # Encabezado
     hdr_cells = table.rows[0].cells
     for i, h in enumerate(headers):
         hdr_cells[i].text = h
         run = hdr_cells[i].paragraphs[0].runs[0]
         style_run(run, size=Pt(10), color=RGBColor(0xFF, 0xFF, 0xFF), bold=True)
         set_cell_bg(hdr_cells[i], '1F497D')
+    # Filas con sombreado alternado
     for idx, row_data in enumerate(rows):
         row   = table.add_row().cells
         color = 'DCE6F1' if idx % 2 == 0 else 'FFFFFF'
@@ -261,6 +275,7 @@ def add_cover_page(doc, title, subtitle="", author="", date=""):
 template_path = None  # completar si se encontró template.docx
 doc = Document(template_path) if template_path else Document()
 
+set_page_size(doc)          # A4 por defecto — US Letter: set_page_size(doc, Cm(21.59), Cm(27.94))
 set_margins(doc)
 doc.core_properties.author = "Claude"
 doc.core_properties.title  = "Título del documento"
@@ -295,6 +310,49 @@ Respondé con:
 - Resumen de la estructura (secciones, tablas, páginas estimadas)
 - Confirmación de que el script temporal fue eliminado
 
+## Professional Document Base
+
+Esqueleto mínimo recomendado — punto de partida copy-paste para cualquier documento:
+
+```python
+doc = Document()
+
+# Page size: A4 por defecto (Argentina, Europa y resto del mundo)
+set_page_size(doc)
+# US Letter solo para audiencias norteamericanas:
+# set_page_size(doc, width=Cm(21.59), height=Cm(27.94))
+
+# Márgenes explícitos
+set_margins(doc, top=2.54, bottom=2.54, left=3.0, right=2.54)
+
+# Header: título + empresa con tab stop alineado a la derecha
+add_header(doc, title="Título del Documento", company="Empresa S.A.")
+
+# Footer: número de página centrado
+add_footer_with_page_number(doc)
+
+# Estilo base de fuente (Arial, 11pt cuerpo)
+FONT_BODY    = "Arial"
+FONT_HEADING = "Arial"
+SIZE_BODY    = Pt(11)
+
+# Portada
+add_cover_page(doc,
+    title    = "Título del Documento",
+    subtitle = "Subtítulo o descripción",
+    author   = "Nombre Apellido",
+    date     = "Marzo 2026"
+)
+
+doc.core_properties.title  = "Título del Documento"
+doc.core_properties.author = "Nombre Apellido"
+
+# --- contenido a partir de aquí ---
+
+doc.save("documento.docx")
+print(f"✓ {os.path.abspath('documento.docx')}")
+```
+
 ## Notas
 
 - Siempre usá `python3`, nunca `python`
@@ -303,4 +361,6 @@ Respondé con:
 - Nunca omitir portada, header o footer
 - La paleta de colores es fija — solo cambiala si el usuario pide branding propio
 - No continúes al paso 5 sin confirmación explícita del paso 4
+- **Page size**: usar A4 (`Cm(21.0) x Cm(29.7)`) por defecto. US Letter (`Cm(21.59) x Cm(27.94)`) solo para documentos destinados a audiencias norteamericanas
+- **Ancho de columnas en tablas**: siempre usar `WidthType.DXA` — `WidthType.PERCENTAGE` falla en Google Docs, SharePoint y Word Online
 ````
