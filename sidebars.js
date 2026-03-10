@@ -109,7 +109,7 @@ module.exports = {
             },
             {
               type: 'category',
-              label: 'Estilo',
+              label: 'Estilo Comunicacional',
               items: [
                 'ia/claude-skills/estilo-skill',
                 'ia/claude-skills/estilo-skill-raw',
