@@ -109,6 +109,14 @@ module.exports = {
             },
             {
               type: 'category',
+              label: 'Excel',
+              items: [
+                'ia/claude-skills/excel-skill',
+                'ia/claude-skills/excel-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
               label: 'Estilo Comunicacional',
               items: [
                 'ia/claude-skills/estilo-skill',
