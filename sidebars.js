@@ -109,6 +109,14 @@ module.exports = {
             },
             {
               type: 'category',
+              label: 'Estilo',
+              items: [
+                'ia/claude-skills/estilo-skill',
+                'ia/claude-skills/estilo-skill-raw',
+              ],
+            },
+            {
+              type: 'category',
               label: 'Commit',
               items: [
                 'ia/claude-skills/commit-skill',
