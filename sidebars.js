@@ -101,126 +101,150 @@ module.exports = {
           items: [
             {
               type: 'category',
-              label: 'Word Doc',
+              label: 'Lenguajes',
               items: [
-                'ia/claude-skills/word-skill',
-                'ia/claude-skills/word-skill-raw',
+                {
+                  type: 'category',
+                  label: 'Java',
+                  items: [
+                    'ia/claude-skills/java-skill',
+                    'ia/claude-skills/java-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'TypeScript',
+                  items: [
+                    'ia/claude-skills/typescript-skill',
+                    'ia/claude-skills/typescript-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'NetCore',
+                  items: [
+                    'ia/claude-skills/netcore-skill',
+                    'ia/claude-skills/netcore-skill-raw',
+                  ],
+                },
               ],
             },
             {
               type: 'category',
-              label: 'Excel',
+              label: 'Frameworks y Librerías',
               items: [
-                'ia/claude-skills/excel-skill',
-                'ia/claude-skills/excel-skill-raw',
+                {
+                  type: 'category',
+                  label: 'NestJS',
+                  items: [
+                    'ia/claude-skills/nestjs-skill',
+                    'ia/claude-skills/nestjs-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Prisma',
+                  items: [
+                    'ia/claude-skills/prisma-skill',
+                    'ia/claude-skills/prisma-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Jest',
+                  items: [
+                    'ia/claude-skills/jest-skill',
+                    'ia/claude-skills/jest-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'State Machine',
+                  items: [
+                    'ia/claude-skills/state-machine-skill',
+                    'ia/claude-skills/state-machine-skill-raw',
+                  ],
+                },
               ],
             },
             {
               type: 'category',
-              label: 'Estilo Comunicacional',
+              label: 'Automatización y Flujo',
               items: [
-                'ia/claude-skills/estilo-skill',
-                'ia/claude-skills/estilo-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Commit',
-              items: [
-                'ia/claude-skills/commit-skill',
-                'ia/claude-skills/commit-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Jest',
-              items: [
-                'ia/claude-skills/jest-skill',
-                'ia/claude-skills/jest-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Jira',
-              items: [
-                'ia/claude-skills/jira-skill',
-                'ia/claude-skills/jira-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'NestJS',
-              items: [
-                'ia/claude-skills/nestjs-skill',
-                'ia/claude-skills/nestjs-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Prisma',
-              items: [
-                'ia/claude-skills/prisma-skill',
-                'ia/claude-skills/prisma-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Skill Creator',
-              items: [
-                'ia/claude-skills/skill-creator-skill',
-                'ia/claude-skills/skill-creator-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Swagger',
-              items: [
-                'ia/claude-skills/swagger-skill',
-                'ia/claude-skills/swagger-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'State Machine',
-              items: [
-                'ia/claude-skills/state-machine-skill',
-                'ia/claude-skills/state-machine-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'TypeScript',
-              items: [
-                'ia/claude-skills/typescript-skill',
-                'ia/claude-skills/typescript-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'Java',
-              items: [
-                'ia/claude-skills/java-skill',
-                'ia/claude-skills/java-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'NetCore',
-              items: [
-                'ia/claude-skills/netcore-skill',
-                'ia/claude-skills/netcore-skill-raw',
-              ],
-            },
-            {
-              type: 'category',
-              label: 'N8N',
-              items: [
+                {
+                  type: 'category',
+                  label: 'Commit',
+                  items: [
+                    'ia/claude-skills/commit-skill',
+                    'ia/claude-skills/commit-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Jira',
+                  items: [
+                    'ia/claude-skills/jira-skill',
+                    'ia/claude-skills/jira-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Swagger',
+                  items: [
+                    'ia/claude-skills/swagger-skill',
+                    'ia/claude-skills/swagger-skill-raw',
+                  ],
+                },
                 {
                   type: 'category',
                   label: 'N8N Workflow',
                   items: [
                     'ia/claude-skills/n8n-workflow-skill',
                     'ia/claude-skills/n8n-workflow-skill-raw',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Documentos y Reportes',
+              items: [
+                {
+                  type: 'category',
+                  label: 'Word Doc',
+                  items: [
+                    'ia/claude-skills/word-skill',
+                    'ia/claude-skills/word-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Excel',
+                  items: [
+                    'ia/claude-skills/excel-skill',
+                    'ia/claude-skills/excel-skill-raw',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Meta',
+              items: [
+                {
+                  type: 'category',
+                  label: 'Estilo Comunicacional',
+                  items: [
+                    'ia/claude-skills/estilo-skill',
+                    'ia/claude-skills/estilo-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Skill Creator',
+                  items: [
+                    'ia/claude-skills/skill-creator-skill',
+                    'ia/claude-skills/skill-creator-skill-raw',
                   ],
                 },
               ],
