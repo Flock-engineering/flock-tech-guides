@@ -127,12 +127,52 @@ module.exports = {
                     'ia/claude-skills/netcore-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'Python',
+                  items: [
+                    'ia/claude-skills/python-skill',
+                    'ia/claude-skills/python-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'SQL',
+                  items: [
+                    'ia/claude-skills/sql-skill',
+                    'ia/claude-skills/sql-skill-raw',
+                  ],
+                },
               ],
             },
             {
               type: 'category',
               label: 'Frameworks y Librerías',
               items: [
+                {
+                  type: 'category',
+                  label: 'Angular',
+                  items: [
+                    'ia/claude-skills/angular-skill',
+                    'ia/claude-skills/angular-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'React',
+                  items: [
+                    'ia/claude-skills/react-skill',
+                    'ia/claude-skills/react-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'RxJS',
+                  items: [
+                    'ia/claude-skills/rxjs-skill',
+                    'ia/claude-skills/rxjs-skill-raw',
+                  ],
+                },
                 {
                   type: 'category',
                   label: 'NestJS',
@@ -203,6 +243,22 @@ module.exports = {
                     'ia/claude-skills/n8n-workflow-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'Docker',
+                  items: [
+                    'ia/claude-skills/docker-skill',
+                    'ia/claude-skills/docker-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'GitHub Actions',
+                  items: [
+                    'ia/claude-skills/github-actions-skill',
+                    'ia/claude-skills/github-actions-skill-raw',
+                  ],
+                },
               ],
             },
             {
@@ -225,6 +281,14 @@ module.exports = {
                     'ia/claude-skills/excel-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'PowerPoint',
+                  items: [
+                    'ia/claude-skills/powerpoint-skill',
+                    'ia/claude-skills/powerpoint-skill-raw',
+                  ],
+                },
               ],
             },
             {
@@ -245,6 +309,14 @@ module.exports = {
                   items: [
                     'ia/claude-skills/skill-creator-skill',
                     'ia/claude-skills/skill-creator-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Code Review',
+                  items: [
+                    'ia/claude-skills/code-review-skill',
+                    'ia/claude-skills/code-review-skill-raw',
                   ],
                 },
               ],
