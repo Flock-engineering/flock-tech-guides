@@ -259,6 +259,14 @@ module.exports = {
                     'ia/claude-skills/github-actions-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'Railway',
+                  items: [
+                    'ia/claude-skills/railway-skill',
+                    'ia/claude-skills/railway-skill-raw',
+                  ],
+                },
               ],
             },
             {
