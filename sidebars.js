@@ -97,6 +97,11 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Recursos útiles',
+          items: ['ia/recursos-utiles'],
+        },
+        {
+          type: 'category',
           label: 'Claude Skills',
           items: [
             {
