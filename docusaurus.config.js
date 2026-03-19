@@ -60,6 +60,11 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/flock-tech-guides-social-card.png',
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       navbar: {
         title: '',
         logo: {
