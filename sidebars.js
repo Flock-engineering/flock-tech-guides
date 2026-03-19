@@ -191,6 +191,14 @@ module.exports = {
                     'ia/claude-skills/railway-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'Project Setup',
+                  items: [
+                    'ia/claude-skills/project-setup-skill',
+                    'ia/claude-skills/project-setup-skill-raw',
+                  ],
+                },
               ],
             },
             {
