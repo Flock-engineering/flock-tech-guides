@@ -259,6 +259,14 @@ module.exports = {
                     'ia/claude-skills/code-review-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'Post-Work Summary',
+                  items: [
+                    'ia/claude-skills/post-work-skill',
+                    'ia/claude-skills/post-work-skill-raw',
+                  ],
+                },
               ],
             },
             {
