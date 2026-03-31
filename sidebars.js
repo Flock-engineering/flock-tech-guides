@@ -199,6 +199,14 @@ module.exports = {
                     'ia/claude-skills/project-setup-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'MCP Builder',
+                  items: [
+                    'ia/claude-skills/mcp-builder-skill',
+                    'ia/claude-skills/mcp-builder-skill-raw',
+                  ],
+                },
               ],
             },
             {
@@ -227,6 +235,76 @@ module.exports = {
                   items: [
                     'ia/claude-skills/powerpoint-skill',
                     'ia/claude-skills/powerpoint-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'PDF',
+                  items: [
+                    'ia/claude-skills/pdf-skill',
+                    'ia/claude-skills/pdf-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'PowerPoint (PPTX)',
+                  items: [
+                    'ia/claude-skills/pptx-skill',
+                    'ia/claude-skills/pptx-skill-raw',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Diseño y Creatividad',
+              items: [
+                {
+                  type: 'category',
+                  label: 'Algorithmic Art',
+                  items: [
+                    'ia/claude-skills/algorithmic-art-skill',
+                    'ia/claude-skills/algorithmic-art-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Canvas Design',
+                  items: [
+                    'ia/claude-skills/canvas-design-skill',
+                    'ia/claude-skills/canvas-design-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Slack GIF Creator',
+                  items: [
+                    'ia/claude-skills/slack-gif-creator-skill',
+                    'ia/claude-skills/slack-gif-creator-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Frontend Design',
+                  items: [
+                    'ia/claude-skills/frontend-design-skill',
+                    'ia/claude-skills/frontend-design-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Web Artifacts Builder',
+                  items: [
+                    'ia/claude-skills/web-artifacts-builder-skill',
+                    'ia/claude-skills/web-artifacts-builder-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Webapp Testing',
+                  items: [
+                    'ia/claude-skills/webapp-testing-skill',
+                    'ia/claude-skills/webapp-testing-skill-raw',
                   ],
                 },
               ],
@@ -265,6 +343,22 @@ module.exports = {
                   items: [
                     'ia/claude-skills/post-work-skill',
                     'ia/claude-skills/post-work-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Brand Guidelines',
+                  items: [
+                    'ia/claude-skills/brand-guidelines-skill',
+                    'ia/claude-skills/brand-guidelines-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Internal Comms',
+                  items: [
+                    'ia/claude-skills/internal-comms-skill',
+                    'ia/claude-skills/internal-comms-skill-raw',
                   ],
                 },
               ],

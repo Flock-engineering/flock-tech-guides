@@ -344,3 +344,102 @@ print(f"✓ {os.path.abspath('documento.docx')}")
 - No continúes al paso 5 sin confirmación explícita del paso 4
 - **Page size**: usar A4 (`Cm(21.0) x Cm(29.7)`) por defecto. US Letter (`Cm(21.59) x Cm(27.94)`) solo para documentos destinados a audiencias norteamericanas
 - **Ancho de columnas en tablas**: siempre usar `WidthType.DXA` — `WidthType.PERCENTAGE` falla en Google Docs, SharePoint y Word Online
+
+---
+
+## Leer y Analizar Documentos Existentes
+
+Para extraer texto de un `.docx` existente antes de editarlo:
+
+```bash
+# Extracción de texto con tracked changes incluidos
+pandoc --track-changes=all documento.docx -o output.md
+
+# Convertir .doc a .docx (formato legacy)
+python scripts/office/soffice.py --headless --convert-to docx documento.doc
+```
+
+---
+
+## Tracked Changes
+
+Para documentos que necesitan revisión con cambios rastreados, editar el XML directamente:
+
+```bash
+# Desempacar el .docx (es un ZIP con XML)
+python scripts/office/unpack.py documento.docx unpacked/
+
+# Editar archivos en unpacked/word/
+# Reempacar
+python scripts/office/pack.py unpacked/ output.docx --original documento.docx
+```
+
+**Patrón de tracked changes en XML:**
+
+```xml
+<!-- Inserción -->
+<w:ins w:id="1" w:author="Claude" w:date="2025-01-01T00:00:00Z">
+  <w:r><w:t>texto insertado</w:t></w:r>
+</w:ins>
+
+<!-- Eliminación -->
+<w:del w:id="2" w:author="Claude" w:date="2025-01-01T00:00:00Z">
+  <w:r><w:delText>texto eliminado</w:delText></w:r>
+</w:del>
+
+<!-- Cambio mínimo: "30 días" → "60 días" -->
+<w:r><w:t>El plazo es </w:t></w:r>
+<w:del w:id="1" w:author="Claude" w:date="...">
+  <w:r><w:delText>30</w:delText></w:r>
+</w:del>
+<w:ins w:id="2" w:author="Claude" w:date="...">
+  <w:r><w:t>60</w:t></w:r>
+</w:ins>
+<w:r><w:t> días.</w:t></w:r>
+```
+
+**Reglas críticas para tracked changes:**
+- Usar `"Claude"` como autor siempre (a menos que el usuario pida otro nombre)
+- Reemplazar el bloque `<w:r>` completo, nunca inyectar tags dentro de un run
+- Preservar `<w:rPr>` del run original para mantener bold, tamaño, etc.
+- Para eliminar párrafos completos: agregar `<w:del/>` dentro de `<w:pPr><w:rPr>` también
+
+---
+
+## Comentarios
+
+Usar el script `comment.py` para agregar comentarios sin boilerplate manual:
+
+```bash
+# Agregar comentario
+python scripts/comment.py unpacked/ 0 "Texto del comentario"
+
+# Responder a comentario existente
+python scripts/comment.py unpacked/ 1 "Respuesta" --parent 0
+
+# Con autor personalizado
+python scripts/comment.py unpacked/ 0 "Texto" --author "Revisor"
+```
+
+Luego agregar los markers en `document.xml`:
+
+```xml
+<!-- Los markers son hermanos de <w:r>, NUNCA dentro de <w:r> -->
+<w:commentRangeStart w:id="0"/>
+<w:r><w:t>texto comentado</w:t></w:r>
+<w:commentRangeEnd w:id="0"/>
+<w:r>
+  <w:rPr><w:rStyle w:val="CommentReference"/></w:rPr>
+  <w:commentReference w:id="0"/>
+</w:r>
+```
+
+---
+
+## Aceptar Tracked Changes
+
+Para producir un documento limpio con todos los cambios aceptados:
+
+```bash
+python scripts/accept_changes.py input.docx output.docx
+```

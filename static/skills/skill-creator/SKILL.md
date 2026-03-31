@@ -159,3 +159,72 @@ Referenciar en SKILL.md:
 - Template: [assets/template.ts](assets/template.ts)
 - Docs: [references/docs-link.md](references/docs-link.md)
 ```
+
+---
+
+## Proceso de Discovery (Anthropic)
+
+Antes de escribir el SKILL.md, capturar la intención con estas preguntas:
+
+1. ¿Qué debería habilitar esta skill en Claude?
+2. ¿Cuándo debería activarse? (frases de usuario, contextos)
+3. ¿Cuál es el formato de output esperado?
+4. ¿Necesita test cases verificables? (los skills con outputs objetivos se benefician de ellos)
+
+### Entrevista y Research
+
+- Preguntar sobre edge cases, formatos de entrada/salida, archivos de ejemplo y criterios de éxito
+- Verificar MCPs disponibles para research en paralelo si ayuda
+- No escribir test prompts hasta tener esto claro
+
+---
+
+## Anatomía de una Skill (Referencia Anthropic)
+
+```
+skill-name/
+├── SKILL.md (requerido)
+│   ├── YAML frontmatter (name, description requeridos)
+│   └── Instrucciones en Markdown
+└── Recursos Bundleados (opcional)
+    ├── scripts/    — Código ejecutable para tareas determinísticas/repetitivas
+    ├── references/ — Docs que se cargan en contexto según necesidad
+    └── assets/     — Archivos usados en el output (templates, íconos, fuentes)
+```
+
+### Sistema de Carga Progresiva
+
+1. **Metadata** (name + description) — Siempre en contexto (~100 palabras)
+2. **SKILL.md body** — En contexto cuando el skill se activa (<500 líneas ideal)
+3. **Recursos bundleados** — Según necesidad (sin límite, los scripts pueden ejecutarse sin cargar)
+
+**Reglas:**
+- Mantener SKILL.md bajo 500 líneas; si se acerca al límite, agregar jerarquía adicional con punteros claros
+- Para múltiples dominios, organizar por variante con un archivo de referencia por cada una
+- Para archivos de referencia grandes (>300 líneas), incluir tabla de contenidos
+
+---
+
+## Descripción del Skill — Optimización de Triggering
+
+La descripción es el **mecanismo principal de activación**. Debe incluir:
+- Qué hace el skill
+- En qué contextos específicos usarlo
+
+**Anti-patrón**: descripción pasiva que hace que Claude "undertrigger" (no active el skill cuando debería).
+
+**Patrón correcto**: ser un poco "pushier" en la descripción. En lugar de:
+> "Cómo construir un dashboard simple para datos internos."
+
+Preferir:
+> "Cómo construir un dashboard simple para datos internos. Usar este skill cuando el usuario menciona dashboards, visualización de datos, métricas internas, o quiere mostrar cualquier tipo de datos, incluso si no pide explícitamente un 'dashboard'."
+
+---
+
+## Estilo de Escritura de Skills
+
+- Usar forma imperativa en las instrucciones
+- Explicar el POR QUÉ de las reglas en lugar de solo el MUST
+- Generalizar desde los ejemplos — las skills se usan millones de veces, no solo en los casos de test
+- Mantener el prompt liviano — quitar lo que no agrega valor
+- Revisar las transcripciones de ejecución, no solo los outputs finales
