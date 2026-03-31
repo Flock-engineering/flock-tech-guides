@@ -345,22 +345,7 @@ module.exports = {
                     'ia/claude-skills/post-work-skill-raw',
                   ],
                 },
-                {
-                  type: 'category',
-                  label: 'Brand Guidelines',
-                  items: [
-                    'ia/claude-skills/brand-guidelines-skill',
-                    'ia/claude-skills/brand-guidelines-skill-raw',
-                  ],
-                },
-                {
-                  type: 'category',
-                  label: 'Internal Comms',
-                  items: [
-                    'ia/claude-skills/internal-comms-skill',
-                    'ia/claude-skills/internal-comms-skill-raw',
-                  ],
-                },
+
               ],
             },
             {
