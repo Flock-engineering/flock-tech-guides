@@ -335,3 +335,98 @@ ws_index = wb.create_sheet(title="Índice", index=0)
 - `autofit_columns` llamarlo **siempre al final**, después de cargar todos los datos
 - Freeze panes: `freeze_row` debe apuntar a la **primera fila de datos**, no al header
 - No continúes al paso 4 sin confirmación explícita del paso 3
+
+---
+
+## Análisis de Datos con pandas
+
+Para análisis, visualización y operaciones en masa, usar **pandas**:
+
+```python
+import pandas as pd
+
+# Leer Excel
+df = pd.read_excel('archivo.xlsx')               # Primera hoja
+all_sheets = pd.read_excel('archivo.xlsx', sheet_name=None)  # Todas las hojas como dict
+
+# Analizar
+df.head()       # Preview de datos
+df.info()       # Info de columnas
+df.describe()   # Estadísticas descriptivas
+
+# Escribir Excel
+df.to_excel('output.xlsx', index=False)
+```
+
+**Cuándo usar pandas vs openpyxl:**
+
+| Tarea | Herramienta |
+|---|---|
+| Análisis de datos, operaciones en masa, export simple | **pandas** |
+| Fórmulas, estilos, tablas nativas, formato complejo | **openpyxl** |
+
+---
+
+## Fórmulas Excel en lugar de Cálculos Python
+
+**CRÍTICO**: Siempre usar fórmulas Excel en lugar de calcular en Python y hardcodear el resultado. Así la planilla sigue siendo dinámica.
+
+```python
+# ❌ MAL — hardcodear valores calculados en Python
+total = df['Ventas'].sum()
+ws['B10'] = total  # Hardcodea 5000
+
+# ✅ BIEN — dejar que Excel calcule
+ws['B10'] = '=SUM(B2:B9)'
+
+# ✅ BIEN — tasa de crecimiento como fórmula
+ws['C5'] = '=(C4-C2)/C2'
+
+# ✅ BIEN — promedio con función Excel
+ws['D20'] = '=AVERAGE(D2:D19)'
+```
+
+Esto aplica para **todos los cálculos**: totales, porcentajes, ratios, diferencias, etc.
+
+---
+
+## Recalcular Fórmulas
+
+Los archivos creados con openpyxl contienen fórmulas como strings pero sin valores calculados. Si hay LibreOffice disponible, usar el script de recálculo:
+
+```bash
+python scripts/recalc.py output.xlsx
+```
+
+El script:
+- Recalcula todas las fórmulas en todas las hojas
+- Escanea errores Excel (`#REF!`, `#DIV/0!`, `#VALUE!`, `#N/A`, `#NAME?`)
+- Retorna JSON con ubicaciones exactas de errores
+
+**Checklist de verificación de fórmulas:**
+- [ ] Verificar referencias de celdas (off-by-one)
+- [ ] Columnas de Excel corresponden a las esperadas
+- [ ] Filas de Excel son 1-indexed (fila 5 de DataFrame = fila 6 de Excel)
+- [ ] Valores NaN manejados con `pd.notna()`
+- [ ] Denominadores en divisiones no son cero (`#DIV/0!`)
+
+---
+
+## Convenciones para Modelos Financieros
+
+Si la planilla es un modelo financiero, aplicar color coding estándar de la industria:
+
+| Color | Uso |
+|---|---|
+| **Texto azul** (RGB: 0,0,255) | Inputs hardcodeados — valores que el usuario cambia para escenarios |
+| **Texto negro** (RGB: 0,0,0) | Fórmulas y cálculos |
+| **Texto verde** (RGB: 0,128,0) | Links a otras hojas del mismo workbook |
+| **Texto rojo** (RGB: 255,0,0) | Links externos a otros archivos |
+| **Fondo amarillo** (RGB: 255,255,0) | Supuestos clave o celdas que necesitan actualización |
+
+**Formato de números para modelos financieros:**
+- Años como texto ("2024", no "2,024")
+- Moneda: `$#,##0` con unidades en el header (`"Revenue ($mm)"`)
+- Ceros: formatear como `"-"` → usar `"$#,##0;($#,##0);-"`
+- Porcentajes: `0.0%` (un decimal)
+- Números negativos: paréntesis `(123)`, no menos `-123`
