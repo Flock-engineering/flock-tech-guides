@@ -129,6 +129,14 @@ module.exports = {
                     'ia/claude-skills/state-machine-skill-raw',
                   ],
                 },
+                {
+                  type: 'category',
+                  label: 'Docusaurus',
+                  items: [
+                    'ia/claude-skills/docusaurus-skill',
+                    'ia/claude-skills/docusaurus-skill-raw',
+                  ],
+                },
               ],
             },
             {
