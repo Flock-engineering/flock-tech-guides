@@ -43,3 +43,4 @@ website/i18n/**/*
 #!website/i18n/fr/**/*
 
 .netlify
+.playwright-mcp
