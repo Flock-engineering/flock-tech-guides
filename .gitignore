@@ -9,7 +9,6 @@
 
 node_modules
 .yarn
-package-lock.json
 
 .eslintcache
 
@@ -43,3 +42,4 @@ website/i18n/**/*
 #!website/i18n/fr/**/*
 
 .netlify
+.playwright-mcp
