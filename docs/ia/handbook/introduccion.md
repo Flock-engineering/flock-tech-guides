@@ -6,33 +6,48 @@ sidebar_label: Introduccion
 
 Esto no es un tutorial de como usar Claude Code. Esto es una guia de como **construir un sistema de desarrollo** donde la IA trabaja para vos con la calidad que vos definis. La diferencia es enorme.
 
-Si pensas que usar IA para desarrollar es abrir un chat, pedir codigo y pegarlo en tu proyecto, estas perdiendo el 90% del valor. El verdadero poder esta en armar un **pipeline de quality gates** donde la IA produce, se valida automaticamente, se corrige sola, y el humano interviene solo donde realmente importa: en las decisiones de arquitectura, en el diseno del sistema, en la revision de la intencion.
+Si pensas que usar IA para desarrollar es abrir un chat, pedir codigo y pegarlo en tu proyecto, estas perdiendo el 90% del valor. El verdadero poder esta en armar un **pipeline de quality gates** donde la IA produce, se valida automaticamente y se corrige sola. Tu rol como humano es ANTES: disenar el sistema, configurar los linters, definir los hooks, escribir los skills, armar el CI. Vos construis las reglas, la IA las cumple.
 
 ## El flujo completo: de la idea al merge
 
 Antes de entrar en detalle, mira el flujo completo. Cada rectangulo es un paso, cada decision es un quality gate. Fijate como los loops de correccion son AUTOMATICOS: la IA no te necesita para arreglar un error de lint o subir el coverage.
 
 ```mermaid
-flowchart TD
-    A["La IA escribe codigo"] --> B["La IA pushea a una branch"]
-    B --> C{"Pre-push hook: lint + coverage"}
-    C -- "Falla" --> D["La IA corrige localmente"]
-    D --> B
-    C -- "Pasa" --> E["Se crea el PR"]
-    E --> F["El humano revisa el PR"]
-    F --> G{"CI: lint + types + tests + coverage + security + build"}
-    G -- "Falla" --> H["La IA corrige y pushea de nuevo"]
-    H --> G
-    G -- "Pasa" --> I["Merge"]
+flowchart LR
+    A(["La IA escribe codigo"]):::start --> B["Pushea a una branch"]
 
-    style A fill:#2563eb,color:#fff
-    style C fill:#f59e0b,color:#000
-    style F fill:#10b981,color:#fff
-    style G fill:#f59e0b,color:#000
-    style I fill:#10b981,color:#fff
+    subgraph local ["Validacion Local"]
+        direction TB
+        C{"Pre-push hook\nlint + coverage"}
+        D["La IA corrige\nlocalmente"]
+        C -- "Falla" --> D
+        D --> C
+    end
+
+    B --> C
+    C -- "Pasa" --> E["Se crea el PR"]
+
+    subgraph ci ["Validacion Remota (CI)"]
+        direction TB
+        G{"CI: lint + types + tests\ncoverage + security + build"}
+        H["La IA corrige\ny pushea de nuevo"]
+        G -- "Falla" --> H
+        H --> G
+    end
+
+    E --> G
+    G -- "Pasa" --> I(["Merge ✅"]):::finish
+
+    classDef start fill:#2563eb,color:#fff,stroke:#1e40af,stroke-width:2px
+    classDef finish fill:#10b981,color:#fff,stroke:#059669,stroke-width:2px
+    classDef decision fill:#f59e0b,color:#000,stroke:#d97706,stroke-width:2px
+
+    class C,G decision
+    style local fill:#eff6ff,stroke:#93c5fd,stroke-width:2px,color:#1e3a5f
+    style ci fill:#f0fdf4,stroke:#86efac,stroke-width:2px,color:#14532d
 ```
 
-Lo que estas viendo es un sistema con **doble capa de validacion** y **loops de correccion automaticos**. La IA es tanto el productor como el que arregla. El humano es el arquitecto y el revisor. Esa es la filosofia completa de este handbook.
+Lo que estas viendo es un sistema con **doble capa de validacion** y **loops de correccion automaticos**. La IA es tanto el productor como el que arregla. El humano es el arquitecto del sistema: configura las reglas, define los estandares, arma el pipeline. Despues, la maquina se encarga de cumplirlos. Esa es la filosofia completa de este handbook.
 
 ## Stage 1: La IA escribe codigo
 
@@ -58,20 +73,7 @@ Y aca esta la clave: la IA NO necesita que vos intervengas para arreglar un erro
 Los hooks son tu primera linea de defensa. Son rapidos, son locales, y atrapan el 80% de los problemas obvios antes de que lleguen a ningun lado. Configuralos bien y te vas a ahorrar una cantidad absurda de ciclos de CI.
 :::
 
-## Stage 3: El PR como punto de control humano
-
-El PR es donde vos volves a la escena. La IA hizo su trabajo, los hooks validaron localmente, y ahora el codigo esta listo para revision humana.
-
-Pero fijate que cambio tu rol. No necesitas revisar formato, no necesitas chequear que pasen los tests, no necesitas buscar errores de lint. Todo eso ya esta GARANTIZADO por los hooks y el CI. Tu trabajo como reviewer es otro:
-
-- **La intencion es correcta?** El codigo resuelve el problema que tenia que resolver?
-- **El approach es el adecuado?** Hay una forma mejor de encarar esto?
-- **La arquitectura se respeta?** Los boundaries estan bien definidos? Las responsabilidades estan donde tienen que estar?
-- **El naming comunica bien?** Los nombres de funciones, variables y archivos cuentan la historia correcta?
-
-Esto es un upgrade MASIVO en la calidad del code review. En vez de perder tiempo en detalles mecanicos, te concentras en lo que realmente importa: el DISENO del software.
-
-## Stage 4: El CI como validacion final
+## Stage 3: El CI como validacion final
 
 El CI corre todo de nuevo en un entorno limpio. Lint, types, tests, coverage, security, build. Todo. Desde cero. En una maquina que no tiene tus configuraciones locales, tus variables de entorno, tus dependencias cacheadas.
 
