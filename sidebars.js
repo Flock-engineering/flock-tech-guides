@@ -30,6 +30,7 @@ module.exports = {
             'ia/handbook/setup-hooks',
             'ia/handbook/setup-sdd',
             'ia/handbook/setup-skills-claude-md',
+            'ia/handbook/bootstrapper',
           ],
         },
         {
