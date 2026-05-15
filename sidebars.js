@@ -23,13 +23,13 @@ module.exports = {
           type: 'category',
           label: 'Handbook IA',
           items: [
+            'ia/handbook/manifiesto',
             'ia/handbook/introduccion',
             'ia/handbook/setup-ci',
             'ia/handbook/setup-linters',
             'ia/handbook/setup-hooks',
             'ia/handbook/setup-sdd',
             'ia/handbook/setup-skills-claude-md',
-            'ia/handbook/manifiesto',
           ],
         },
         {
