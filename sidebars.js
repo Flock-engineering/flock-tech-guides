@@ -433,11 +433,46 @@ module.exports = {
               type: 'category',
               label: 'Templates por Stack',
               items: [
-                'ia/claude-md/angular-nestjs',
-                'ia/claude-md/react-node',
-                'ia/claude-md/java-spring-boot',
-                'ia/claude-md/netcore',
-                'ia/claude-md/python-fastapi',
+                {
+                  type: 'category',
+                  label: 'Angular + NestJS',
+                  items: [
+                    'ia/claude-md/angular-nestjs',
+                    'ia/claude-md/angular-nestjs-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'React + Node',
+                  items: [
+                    'ia/claude-md/react-node',
+                    'ia/claude-md/react-node-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Java Spring Boot',
+                  items: [
+                    'ia/claude-md/java-spring-boot',
+                    'ia/claude-md/java-spring-boot-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: '.NET Core',
+                  items: [
+                    'ia/claude-md/netcore',
+                    'ia/claude-md/netcore-raw',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Python FastAPI',
+                  items: [
+                    'ia/claude-md/python-fastapi',
+                    'ia/claude-md/python-fastapi-raw',
+                  ],
+                },
               ],
             },
           ],
