@@ -424,6 +424,24 @@ module.exports = {
             },
           ],
         },
+        {
+          type: 'category',
+          label: 'CLAUDE.md',
+          items: [
+            'ia/claude-md/claude-md',
+            {
+              type: 'category',
+              label: 'Templates por Stack',
+              items: [
+                'ia/claude-md/angular-nestjs',
+                'ia/claude-md/react-node',
+                'ia/claude-md/java-spring-boot',
+                'ia/claude-md/netcore',
+                'ia/claude-md/python-fastapi',
+              ],
+            },
+          ],
+        },
       ],
     },
     {
