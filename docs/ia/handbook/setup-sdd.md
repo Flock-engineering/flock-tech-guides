@@ -248,6 +248,6 @@ flowchart LR
 
 Los cuatro layers se complementan. SDD no reemplaza al CI, igual que los hooks no reemplazan al CI. Cada uno opera en un nivel distinto. Y con IA, el costo de mantener los cuatro es practicamente nulo.
 
-:::warning[Conclusion]
+:::tip[Conclusion]
 El CI te garantiza que el codigo esta bien escrito. SDD te garantiza que estas escribiendo lo que hay que escribir. Los dos juntos, con IA ejecutando, te dan trazabilidad completa desde la decision de diseño hasta el merge. **Sin atajos. Sin improvisacion. Sin codigo huerfano que nadie sabe por que existe.**
 :::

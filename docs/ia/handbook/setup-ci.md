@@ -265,6 +265,6 @@ Asegurate de que el dev (o la IA) pueda correr los mismos checks localmente ante
 
 ---
 
-:::warning[Conclusion]
+:::tip[Conclusion]
 El CI ya no es un costo operativo que "hay que bancar". Es la herramienta mas poderosa que tenes para mantener la calidad cuando trabajas con IA. Cuanto mas estricto sea tu pipeline, mejor codigo va a producir la IA. **Es asi de simple.**
 :::
