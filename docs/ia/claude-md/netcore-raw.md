@@ -1,11 +1,23 @@
 ---
-id: netcore
-sidebar_label: .NET Core
+id: netcore-raw
+title: "CLAUDE.md — .NET Core"
+sidebar_label: "CLAUDE.md"
 ---
 
 # CLAUDE.md — .NET Core
 
+Archivo CLAUDE.md listo para usar. Copialo a la raiz de tu proyecto y ajustalo a tus convenciones.
+
+:::info Contribuir
+[✏️ Sugerir correccion en GitHub](https://github.com/Flock-engineering/flock-tech-guides/edit/dev/static/claude-md/netcore/CLAUDE.md) — GitHub te propone hacer fork y PR automaticamente si no tenes permisos de push.
+:::
+
+[⬇ Descargar CLAUDE.md](pathname:///flock-tech-guides/claude-md/netcore/CLAUDE.md)
+
 ---
+
+````md
+# CLAUDE.md
 
 ## Reglas de comportamiento
 
@@ -26,8 +38,6 @@ Estas reglas aplican a CUALQUIER proyecto. Definen como debe comportarse la IA i
 - No manejes errores de escenarios que no pueden pasar.
 - Si escribiste 200 lineas y podrian ser 50, reescribi.
 
-> Preguntate: "Un senior diria que esto esta sobrecomplicado?" Si la respuesta es si, simplifica.
-
 ### Cambios quirurgicos
 
 - No "mejores" codigo adyacente, comentarios o formato que no te pidieron tocar.
@@ -35,8 +45,6 @@ Estas reglas aplican a CUALQUIER proyecto. Definen como debe comportarse la IA i
 - Respeta el estilo existente, aunque vos lo harias distinto.
 - Si encontras codigo muerto que no es tuyo, mencionalo — no lo borres.
 - Si TUS cambios dejan imports o variables huerfanas, limpia eso. Pero solo lo que vos generaste.
-
-> La prueba: cada linea que cambies deberia poder trazarse directamente al pedido del usuario.
 
 ### Ejecucion orientada a objetivos
 
@@ -79,8 +87,6 @@ Para tareas de varios pasos, plantea un plan breve con verificacion en cada paso
 - No agregues "Co-Authored-By" ni ninguna atribucion de IA en los commits.
 - Usa Conventional Commits: `feat(scope): mensaje`, `fix(scope): mensaje`, `refactor(scope): mensaje`.
 
----
-
 ## Stack: .NET Core
 
 <!-- Edita esta seccion con las convenciones reales de tu proyecto -->
@@ -93,24 +99,17 @@ Para tareas de varios pasos, plantea un plan breve con verificacion en cada paso
 
 ### Skills (auto-load)
 
-Si usas [Claude Skills](../handbook/setup-skills-claude-md), podes agregar una tabla que mapee contextos a skills. Esto fuerza la carga explicita del skill cuando la IA detecta el contexto, en vez de depender de la deteccion automatica. Si no usas skills, borra esta seccion del CLAUDE.md.
+<!-- Si usas Claude Skills, agrega aca una tabla que mapee contextos a skills.
+     Esto fuerza la carga explicita del skill cuando la IA detecta el contexto.
+     Si no usas skills, borra esta seccion. -->
 
-Ejemplo:
-
+<!-- Ejemplo:
 | Contexto | Skill |
 |----------|-------|
-| Crear clase C# | `~/.claude/skills/netcore/SKILL.md` |
+| Crear componente Angular | `~/.claude/skills/angular/SKILL.md` |
 | Escribir tests unitarios | `~/.claude/skills/jest/SKILL.md` |
 | Crear Dockerfile | `~/.claude/skills/docker/SKILL.md` |
+-->
 
-En el archivo raw descargable, esta tabla esta comentada para que la edites con tus skills reales.
-
-:::info
-Contenido en construccion. Proximamente: convenciones de C# 12+ (primary constructors, pattern matching), .NET 8/9 (minimal APIs, EF Core), estructura de proyecto y patrones recomendados.
-:::
-
----
-
-:::tip[Conclusion]
-Copia este template a la raiz de tu proyecto como `CLAUDE.md` y ajusta la seccion de stack a tus convenciones reales. Las reglas de comportamiento son universales — la seccion de stack es donde vos defines como se trabaja en TU proyecto. **[Descargar CLAUDE.md →](./netcore-raw)**
-:::
+<!-- TODO: Completar con convenciones especificas del stack -->
+````
