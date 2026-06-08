@@ -209,7 +209,7 @@ Por que SDD funciona tan bien con agentes de IA? Porque cada fase tiene exactame
 
 **El verify cierra el loop.** Este es el punto mas importante. Las specs definen QUE tiene que pasar. Apply implementa. Verify valida que la implementacion CUMPLE con las specs. Es el mismo principio que el CI, pero a nivel de diseño: definir expectativas, ejecutar, validar contra las expectativas.
 
-**Persistencia entre sesiones.** Los artefactos se guardan en Engram, lo que significa que sobreviven resets de contexto y compactaciones. Podes arrancar una sesion, generar specs y diseño, y en otra sesion correr apply — los artefactos siguen ahi. Sin persistencia, SDD no funcionaria con IA.
+**Persistencia entre sesiones.** Los artefactos se guardan en [Engram](./setup-engram.md), lo que significa que sobreviven resets de contexto y compactaciones. Podes arrancar una sesion, generar specs y diseño, y en otra sesion correr apply — los artefactos siguen ahi. Sin persistencia, SDD no funcionaria con IA.
 
 > Cada fase de SDD es un contrato claro entre vos y la IA.
 > **Vos definís el QUE. La IA ejecuta el COMO. Y verify se asegura de que lo hizo bien.**

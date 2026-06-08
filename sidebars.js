@@ -29,6 +29,7 @@ module.exports = {
             'ia/handbook/setup-linters',
             'ia/handbook/setup-hooks',
             'ia/handbook/setup-sdd',
+            'ia/handbook/setup-engram',
             'ia/handbook/setup-skills-claude-md',
             'ia/handbook/bootstrapper',
           ],
