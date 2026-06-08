@@ -104,6 +104,7 @@ Este handbook te guia paso a paso en como armar cada pieza de este sistema. Cada
 - [**Setup de Hooks**](./setup-hooks.md) — La primera barrera de validacion. Rapida, local, y automatica.
 - [**Setup de Skills y CLAUDE.md**](./setup-skills-claude-md.md) — Como configurar las instrucciones y habilidades que le das a la IA para que el codigo generado arranque con la calidad mas alta posible.
 - [**Setup de SDD**](./setup-sdd.md) — Spec-Driven Development: como planificar cambios grandes antes de que la IA escriba una sola linea.
+- [**Setup de Engram**](./setup-engram.md) — Memoria persistente para que la IA no olvide decisiones, bugs ni convenciones entre sesiones.
 - [**Manifiesto**](./manifiesto.md) — Los principios y valores que guian todo esto. El "por que" detras de cada decision.
 
 No importa en que orden los leas, pero si estas arrancando de cero, te recomiendo empezar por el CI y los linters. Son los cimientos. Sin ellos, todo lo demas es decoracion.
