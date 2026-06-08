@@ -8,9 +8,9 @@ Esto no es una lista de sugerencias. Son los principios que definen cómo trabaj
 
 ```mermaid
 flowchart LR
-    A["Pensar\nel problema"] --> B["Disenar\nla solucion"]
-    B --> C["Automatizar\nla calidad"]
-    C --> D["Confiar en\nel harness"]
+    A["Pensar\nel problema"] --> B["Confiar en\nel harness"]
+    B --> C["Disenar\nla solucion"]
+    C --> D["Automatizar\nla calidad"]
     D --> E["Planificar\ncon SDD"]
     E --> F["Validar\nen dos capas"]
     F --> G["Documentar\ntodo"]
@@ -36,7 +36,17 @@ La IA es un multiplicador de 10x, pero solo si soltas el teclado y te enfocas en
 
 ---
 
-## 2. El humano disena, la IA ejecuta
+## 2. Confia en tu harness
+
+**Si tu pipeline pasa, el codigo cumple tus reglas. No necesitas leer cada linea.**
+
+Este es el miedo mas comun: "pero yo no vi ese codigo". Y la pregunta es: que importa si lo viste o no? Si configuraste linters estrictos, hooks que bloquean, CI que rechaza, y tests con coverage alto — el codigo que atraviesa TODAS esas barreras cumple con tus estandares. No porque vos lo revisaste, sino porque tu sistema lo valido.
+
+El miedo a codigo que no leiste viene de no confiar en tu sistema de validacion. Si no confias, el problema no es el codigo generado — es que tu harness no es lo suficientemente estricto. La respuesta no es volver a leer cada linea. La respuesta es [mejorar tus linters](./setup-linters.md), [endurecer tus hooks](./setup-hooks.md), [subir la exigencia del CI](./setup-ci.md). Cuanto mas estricto sea tu harness, menos necesitas mirar. Es asi de simple.
+
+---
+
+## 3. El humano disena, la IA ejecuta
 
 **Vos definis las reglas, la arquitectura, los estandares. La IA escribe el codigo que cumple con todo eso.**
 
@@ -46,23 +56,13 @@ Esto no te hace menos tecnico. Te hace MAS tecnico. Porque ahora tu trabajo es p
 
 ---
 
-## 3. La calidad no se negocia, se automatiza
+## 4. La calidad no se negocia, se automatiza
 
 **Linters al maximo, hooks que bloquean, CI que rechaza. El costo de enforcement con IA es practicamente cero.**
 
 Todo lo que antes era "nice to have" ahora es obligatorio. Por que? Porque el costo de cumplir bajo a casi nada. La IA no se queja si le pedis que arregle 47 warnings de lint. No se cansa, no negocia, no dice "despues lo arreglo". Entonces no hay excusa para bajar la barra.
 
 Configura tus [linters al maximo](./setup-linters.md), tus [hooks que bloqueen](./setup-hooks.md), tu [CI que rechace](./setup-ci.md). La calidad deja de ser un costo y se convierte en un default.
-
----
-
-## 4. Confia en tu harness
-
-**Si tu pipeline pasa, el codigo cumple tus reglas. No necesitas leer cada linea.**
-
-Este es el miedo mas comun: "pero yo no vi ese codigo". Y la pregunta es: que importa si lo viste o no? Si configuraste linters estrictos, hooks que bloquean, CI que rechaza, y tests con coverage alto — el codigo que atraviesa TODAS esas barreras cumple con tus estandares. No porque vos lo revisaste, sino porque tu sistema lo valido.
-
-El miedo a codigo que no leiste viene de no confiar en tu sistema de validacion. Si no confias, el problema no es el codigo generado — es que tu harness no es lo suficientemente estricto. La respuesta no es volver a leer cada linea. La respuesta es [mejorar tus linters](./setup-linters.md), [endurecer tus hooks](./setup-hooks.md), [subir la exigencia del CI](./setup-ci.md). Cuanto mas estricto sea tu harness, menos necesitas mirar. Es asi de simple.
 
 ---
 
