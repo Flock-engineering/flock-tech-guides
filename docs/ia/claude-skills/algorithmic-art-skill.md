@@ -9,7 +9,7 @@ sidebar_label: "Algorithmic Art"
 Skill que guía a Claude para **crear arte generativo interactivo** usando `p5.js` con randomness seedeada, campos de flujo, sistemas de partículas y exploración paramétrica — produciendo artefactos HTML auto-contenidos que funcionan directo en el browser.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/algorithmic-art/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/algorithmic-art/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/algorithmic-art/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/algorithmic-art/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

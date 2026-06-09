@@ -9,7 +9,7 @@ sidebar_label: "PowerPoint Skill"
 Skill que guía a Claude para generar presentaciones PowerPoint (`.pptx`) con python-pptx, estilo profesional, jerarquía tipográfica y compatibilidad con SharePoint y Teams.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/powerpoint/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/powerpoint/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/powerpoint/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/powerpoint/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

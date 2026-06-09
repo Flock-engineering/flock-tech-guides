@@ -9,7 +9,7 @@ sidebar_label: "PowerPoint (PPTX)"
 Skill que guía a Claude para **crear, leer, editar y manipular presentaciones `.pptx`** — desde extraer texto hasta construir decks completos con diseño profesional usando `pptxgenjs` y `markitdown`.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/pptx/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/pptx/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/pptx/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/pptx/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

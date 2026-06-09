@@ -9,7 +9,7 @@ sidebar_label: "Estilo Comunicacional"
 Skill que define cómo Claude se comunica: **español rioplatense, directo, técnico, legible y sin relleno**. Se activa en todas las conversaciones y no requiere trigger explícito.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/estilo/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/estilo/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/estilo/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/estilo/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

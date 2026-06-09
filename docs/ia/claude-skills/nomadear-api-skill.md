@@ -9,7 +9,7 @@ sidebar_label: "Nomadear API Skill"
 Skill que guía a Claude para diseñar y crear endpoints REST siguiendo las convenciones de URL, status codes, estructura de responses, paginación y manejo de errores del proyecto Nomadear.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/nomadear-api/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nomadear-api/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/nomadear-api/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/nomadear-api/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

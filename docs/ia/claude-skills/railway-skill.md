@@ -9,7 +9,7 @@ sidebar_label: "Railway Skill"
 Skill que guía a Claude para hacer deploys en Railway de forma **segura y validada** — con máxima protección contra borrado de datos, deploys en entornos incorrectos y secrets expuestos.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/railway/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/railway/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/railway/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/railway/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

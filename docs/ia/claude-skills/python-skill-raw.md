@@ -12,7 +12,7 @@ Archivo de instrucciones que Claude usa internamente. Si encontrás algo para me
 [✏️ Sugerir corrección en GitHub](https://github.com/Flock-engineering/flock-tech-guides/edit/dev/static/skills/python/SKILL.md) — GitHub te propone hacer fork y PR automáticamente si no tenés permisos de push.
 :::
 
-[⬇ Descargar SKILL.md](pathname:///flock-tech-guides/skills/python/SKILL.md)
+<DownloadButton to="skills/python/SKILL.md">⬇ Descargar SKILL.md</DownloadButton>
 
 ---
 

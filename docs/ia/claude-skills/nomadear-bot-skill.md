@@ -9,7 +9,7 @@ sidebar_label: "Nomadear Bot Skill"
 Skill que guía a Claude para trabajar con el módulo de bot del proyecto Nomadear, basado en **Google Vertex AI Discovery Engine** para responder preguntas sobre eventos y registros.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/nomadear-bot/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nomadear-bot/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/nomadear-bot/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/nomadear-bot/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

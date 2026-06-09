@@ -9,7 +9,7 @@ sidebar_label: "Nomadear Auth Skill"
 Skill que guía a Claude para trabajar con el sistema de autenticación JWT con roles de Nomadear: login, registro, guards, permisos por rol y scoping por concesionaria.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/nomadear-auth/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nomadear-auth/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/nomadear-auth/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/nomadear-auth/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?
