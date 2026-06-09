@@ -9,7 +9,7 @@ sidebar_label: "Jira Skill"
 Skill que guía a Claude para convertir commits y features en tarjetas de Jira con estructura estandarizada, listos para copiar al tablero del proyecto.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/jira/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/jira/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/jira/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/jira/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

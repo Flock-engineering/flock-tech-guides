@@ -9,7 +9,7 @@ sidebar_label: "Nomadear Registrations Skill"
 Skill que guía a Claude para trabajar con el sistema de preinscripciones públicas de Nomadear: registro individual, aprobación/rechazo, bulk upload por CSV y validación de duplicados.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/nomadear-registrations/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nomadear-registrations/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/nomadear-registrations/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/nomadear-registrations/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

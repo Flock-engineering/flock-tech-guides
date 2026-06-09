@@ -9,7 +9,7 @@ sidebar_label: "TypeScript Skill"
 Skill que guía a Claude para escribir código TypeScript con tipado fuerte, **calidad de código** y sin duplicación — aplicando utility types, generics, type guards y buenas prácticas de organización de tipos.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/typescript/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/typescript/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/typescript/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/typescript/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

@@ -13,10 +13,12 @@ const config = {
   favicon: 'img/logo-flock.png',
 
   // Set the production url of your site here
-  url: 'https://flock-engineering.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/flock-tech-guides/',
+  url: 'https://flock-tech-guides.vercel.app',
+  // Set the /<baseUrl>/ pathname under which your site is served.
+  // Single source of truth for the base path — content resolves asset URLs
+  // through this value (see src/components/DownloadButton). Served from the
+  // domain root on Vercel; override via DOCUSAURUS_BASE_URL if deployed elsewhere.
+  baseUrl: process.env.DOCUSAURUS_BASE_URL || '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.

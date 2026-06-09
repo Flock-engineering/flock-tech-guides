@@ -9,7 +9,7 @@ sidebar_label: "Commit Skill"
 Skill que guía a Claude para escribir mensajes de commit siguiendo el estándar **Conventional Commits**, con flujo de PR obligatorio, commits atómicos y reglas de seguridad sobre qué commitear.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/commit/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/commit/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/commit/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/commit/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

@@ -9,7 +9,7 @@ sidebar_label: "NetCore Skill"
 Skill que guía a Claude para escribir **.NET/C# moderno con primary constructors, null safety y patrones idiomáticos**, aplicando `ILogger<T>`, `record`, LINQ, pattern matching, async/await correcto, guard clauses y una jerarquía de excepciones bien definida.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/netcore/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/netcore/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/netcore/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/netcore/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

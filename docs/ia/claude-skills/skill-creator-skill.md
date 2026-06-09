@@ -9,7 +9,7 @@ sidebar_label: "Skill Creator"
 Meta-skill que guía a Claude para **crear nuevos skills** en cualquier proyecto, siguiendo la estructura, convenciones de nombres y el proceso de sincronización de Claude Code.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/skill-creator/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/skill-creator/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/skill-creator/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/skill-creator/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

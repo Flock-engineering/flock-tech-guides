@@ -9,7 +9,7 @@ sidebar_label: "Angular Skill"
 Skill que guía a Claude para escribir Angular 17+ con **standalone components**, signals, OnPush y buenas prácticas — sin NgModules en código nuevo, con lazy loading siempre activo y cleanup correcto de subscripciones.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/angular/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/angular/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/angular/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/angular/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

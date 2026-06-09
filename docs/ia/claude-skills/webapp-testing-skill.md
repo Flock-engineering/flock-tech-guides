@@ -9,7 +9,7 @@ sidebar_label: "Webapp Testing"
 Skill que guía a Claude para **interactuar y testear aplicaciones web locales usando Playwright**, con soporte para captura de screenshots, inspección del DOM, manejo del ciclo de vida del servidor y captura de logs de browser.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/webapp-testing/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/webapp-testing/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/webapp-testing/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/webapp-testing/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

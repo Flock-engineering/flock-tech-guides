@@ -12,7 +12,11 @@ Archivo CLAUDE.md listo para usar. Copialo a la raiz de tu proyecto y ajustalo a
 [✏️ Sugerir correccion en GitHub](https://github.com/Flock-engineering/flock-tech-guides/edit/dev/static/claude-md/netcore/CLAUDE.md) — GitHub te propone hacer fork y PR automaticamente si no tenes permisos de push.
 :::
 
-[⬇ Descargar CLAUDE.md](pathname:///flock-tech-guides/claude-md/netcore/CLAUDE.md)
+<DownloadButton to="claude-md/netcore/CLAUDE.md">⬇ Descargar CLAUDE.md</DownloadButton>
+
+:::tip[Peso del archivo: ~1000 tokens]
+**95 lineas · 642 palabras · ~1000 tokens.** Este template esta dentro del rango optimo. Un CLAUDE.md deberia mantenerse por debajo de ~2000 tokens para no sobrecargar el contexto. Recordá que se carga en CADA interaccion — cada linea que agregues consume contexto disponible para tu código.
+:::
 
 ---
 

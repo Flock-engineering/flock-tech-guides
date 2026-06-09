@@ -9,7 +9,7 @@ sidebar_label: "Project Setup Skill"
 Skill que guía a Claude para **levantar proyectos de forma segura y ordenada** — leyendo el README, validando dependencias, entorno, variables y esquemas de base de datos antes de arrancar cualquier cosa.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/project-setup/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/project-setup/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/project-setup/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/project-setup/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

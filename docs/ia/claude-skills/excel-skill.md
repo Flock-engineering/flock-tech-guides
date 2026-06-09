@@ -9,7 +9,7 @@ sidebar_label: "Excel Skill"
 Skill que guía a Claude para generar **planillas `.xlsx` con estilo profesional y compatibilidad garantizada con SharePoint y Excel Online**, usando `openpyxl` con tablas nativas, freeze panes y page setup A4.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/excel/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/excel/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/excel/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/excel/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

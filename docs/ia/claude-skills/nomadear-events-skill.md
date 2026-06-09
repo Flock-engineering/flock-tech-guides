@@ -9,7 +9,7 @@ sidebar_label: "Nomadear Events Skill"
 Skill que guía a Claude para trabajar con el sistema de eventos de Nomadear: ciclo de vida, estados, modificaciones, historial de cambios y transiciones permitidas.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/nomadear-events/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nomadear-events/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/nomadear-events/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/nomadear-events/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

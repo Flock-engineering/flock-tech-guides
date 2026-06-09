@@ -9,7 +9,7 @@ sidebar_label: "React Skill"
 Skill que guía a Claude para escribir componentes React con hooks, TypeScript estricto, rendimiento optimizado y sin anti-patrones comunes de re-renders o memory leaks.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/react/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/react/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/react/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/react/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

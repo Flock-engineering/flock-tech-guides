@@ -9,7 +9,7 @@ sidebar_label: "Code Review Skill"
 Skill que guía a Claude para realizar code reviews con criterio técnico, sistema de severidades claro y feedback accionable — no solo señalar problemas sino proponer soluciones.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/code-review/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/code-review/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/code-review/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/code-review/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

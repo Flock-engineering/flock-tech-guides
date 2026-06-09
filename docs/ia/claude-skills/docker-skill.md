@@ -9,7 +9,7 @@ sidebar_label: "Docker Skill"
 Skill que guía a Claude para escribir Dockerfiles con multi-stage builds, usuario no-root, imágenes mínimas y configuraciones de Compose para desarrollo y producción.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/docker/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/docker/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/docker/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/docker/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

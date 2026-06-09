@@ -9,7 +9,7 @@ sidebar_label: "State Machine Skill"
 Skill que guía a Claude para analizar un módulo e implementar una **Máquina de Estado Finita (FSM)** para sus estados y transiciones, aplicable a cualquier proyecto TypeScript.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/state-machine/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/state-machine/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/state-machine/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/state-machine/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

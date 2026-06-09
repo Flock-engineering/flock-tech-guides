@@ -9,7 +9,7 @@ sidebar_label: "Slack GIF Creator"
 Skill que guía a Claude para **crear GIFs animados optimizados para Slack** — tanto emojis (128x128) como GIFs de mensajes (480x480) — usando PIL con animaciones creativas, easing y validación automática de los requisitos de Slack.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/slack-gif-creator/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/slack-gif-creator/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/slack-gif-creator/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/slack-gif-creator/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

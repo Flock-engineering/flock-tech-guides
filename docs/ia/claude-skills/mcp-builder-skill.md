@@ -9,7 +9,7 @@ sidebar_label: "MCP Builder"
 Skill que guía a Claude para **crear servidores MCP (Model Context Protocol) de alta calidad**, siguiendo las cuatro fases del ciclo: investigación, implementación, revisión y evaluaciones. Compatible con TypeScript (recomendado) y Python/FastMCP.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/mcp-builder/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/mcp-builder/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/mcp-builder/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/mcp-builder/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

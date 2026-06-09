@@ -9,7 +9,7 @@ sidebar_label: "PDF"
 Skill que guía a Claude para **leer, crear, combinar, dividir, rotar, marcar con watermark, encriptar y extraer contenido de archivos PDF**, usando `pypdf`, `pdfplumber`, `reportlab` y herramientas de línea de comando como `qpdf`.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/pdf/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/pdf/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/pdf/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/pdf/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

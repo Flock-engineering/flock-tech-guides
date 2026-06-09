@@ -9,7 +9,7 @@ sidebar_label: "Canvas Design"
 Skill que guía a Claude para **crear diseños visuales de calidad museo** — posters, arte abstracto, piezas de diseño — como archivos `.pdf` o `.png`, precedidos por una filosofía de diseño escrita que fundamenta cada decisión estética.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/canvas-design/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/canvas-design/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/canvas-design/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/canvas-design/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

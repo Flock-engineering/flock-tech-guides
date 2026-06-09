@@ -9,7 +9,7 @@ sidebar_label: "Post-Work Summary Skill"
 Skill que instruye a Claude para mostrar un **resumen de ejecución al finalizar cada tarea** — incluyendo modelo utilizado, duración estimada, tokens consumidos, sub-agentes invocados y un checklist de lo guardado en Engram.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/post-work/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/post-work/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/post-work/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/post-work/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?
