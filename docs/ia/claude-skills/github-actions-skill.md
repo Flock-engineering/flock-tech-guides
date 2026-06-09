@@ -9,7 +9,7 @@ sidebar_label: "GitHub Actions Skill"
 Skill que guía a Claude para escribir workflows de CI/CD con permisos mínimos, caching de dependencias, secrets correctos y separación entre pipelines de integración y deploy.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/github-actions/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/github-actions/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/github-actions/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/github-actions/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

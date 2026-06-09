@@ -9,7 +9,7 @@ sidebar_label: "N8N Workflow Skill"
 Skill que guía a Claude para **generar JSON de flujos N8N** válidos, seguros y con manejo de errores — incluyendo protección contra loops infinitos, hardcoding de credenciales y ejecuciones descontroladas.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/n8n-workflow/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/n8n-workflow/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/n8n-workflow/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/n8n-workflow/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

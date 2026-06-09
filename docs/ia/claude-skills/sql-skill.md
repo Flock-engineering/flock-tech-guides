@@ -9,7 +9,7 @@ sidebar_label: "SQL Skill"
 Skill que guía a Claude para escribir queries SQL con CTEs, window functions, índices correctos y buenas prácticas de rendimiento y seguridad.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/sql/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/sql/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/sql/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/sql/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

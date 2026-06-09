@@ -9,7 +9,7 @@ sidebar_label: "RxJS Skill"
 Skill que guía a Claude para escribir código RxJS con los operadores de flattening correctos, prevención de memory leaks y manejo de errores en observables.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/rxjs/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/rxjs/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/rxjs/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/rxjs/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

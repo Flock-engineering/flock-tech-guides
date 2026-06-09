@@ -9,7 +9,7 @@ sidebar_label: "NestJS Skill"
 Skill que guía a Claude para crear módulos, controllers, services, guards, decorators y pipes siguiendo las convenciones de **NestJS**.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/nestjs/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/nestjs/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/nestjs/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/nestjs/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

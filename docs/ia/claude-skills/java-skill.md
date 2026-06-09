@@ -9,7 +9,7 @@ sidebar_label: "Java Skill"
 Skill que guía a Claude para escribir **Java moderno (17+) con Lombok como estándar**, calidad de código, sin duplicación y sin null bugs — aplicando `Optional`, `record`, generics, streams, guard clauses y una jerarquía de excepciones bien definida.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/java/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/java/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/java/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/java/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

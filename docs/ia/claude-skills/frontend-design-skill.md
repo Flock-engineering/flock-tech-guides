@@ -9,7 +9,7 @@ sidebar_label: "Frontend Design"
 Skill que guía a Claude para crear **interfaces frontend distintivas y de calidad production**, evitando estéticas genéricas de IA ("AI slop"). Genera código real y funcional con atención excepcional al detalle visual y decisiones de diseño creativas.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/frontend-design/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/frontend-design/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/frontend-design/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/frontend-design/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

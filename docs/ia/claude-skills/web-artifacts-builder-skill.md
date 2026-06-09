@@ -9,7 +9,7 @@ sidebar_label: "Web Artifacts Builder"
 Skill que guía a Claude para crear **artefactos HTML complejos y multi-componente para claude.ai**, usando React 18, TypeScript, Tailwind CSS y shadcn/ui con un pipeline de bundling que genera un único archivo HTML autocontenido.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/web-artifacts-builder/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/web-artifacts-builder/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/web-artifacts-builder/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/web-artifacts-builder/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

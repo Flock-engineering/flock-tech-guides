@@ -9,7 +9,7 @@ sidebar_label: "Prisma Skill"
 Skill que guía a Claude para trabajar con **Prisma** y **PostgreSQL**: schema, migraciones, queries, relaciones y transacciones.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/prisma/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/prisma/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/prisma/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/prisma/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

@@ -9,7 +9,7 @@ sidebar_label: "Swagger Skill"
 Skill que guía a Claude para documentar endpoints con **Swagger / OpenAPI** usando decorators de NestJS, incluyendo ejemplos, autenticación y tipos de respuesta.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/swagger/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/swagger/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/swagger/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/swagger/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

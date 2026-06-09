@@ -9,7 +9,7 @@ sidebar_label: "Docusaurus Skill"
 Skill que guía a Claude para construir sitios Docusaurus con foco en **diseño, usabilidad y buenas prácticas** — cubriendo desde design tokens y dark mode hasta sidebars, landing pages y componentes custom.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/docusaurus/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/docusaurus/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/docusaurus/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/docusaurus/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?

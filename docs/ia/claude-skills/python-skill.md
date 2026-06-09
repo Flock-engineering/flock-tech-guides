@@ -9,7 +9,7 @@ sidebar_label: "Python Skill"
 Skill que guía a Claude para escribir Python con type hints completos, Pydantic v2, manejo de errores explícito y buenas prácticas de calidad de código.
 
 :::tip Descarga el skill
-<a href="/flock-tech-guides/skills/python/SKILL.md" download="SKILL.md">⬇ Descargar SKILL.md</a> — guardalo en `~/.claude/skills/python/SKILL.md` para instalarlo directamente.
+<DownloadButton to="skills/python/SKILL.md">⬇ Descargar SKILL.md</DownloadButton> — guardalo en `~/.claude/skills/python/SKILL.md` para instalarlo directamente.
 :::
 
 ## ¿Qué hace?
