@@ -26,16 +26,11 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 
-Using SSH:
+The site is hosted on **Vercel** and deploys automatically: every push to the
+production branch (`dev`) triggers a production build, and other branches get
+preview deployments. No manual deploy command is needed.
 
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The base path is controlled by `baseUrl` in `docusaurus.config.js` (defaults to
+`/`, overridable via the `DOCUSAURUS_BASE_URL` env var). Content must resolve
+asset URLs through Docusaurus (e.g. the `<DownloadButton>` component) rather than
+hardcoding the base path.

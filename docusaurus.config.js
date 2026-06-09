@@ -20,11 +20,6 @@ const config = {
   // domain root on Vercel; override via DOCUSAURUS_BASE_URL if deployed elsewhere.
   baseUrl: process.env.DOCUSAURUS_BASE_URL || '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Flock-engineering', // Usually your GitHub org/user name.
-  projectName: 'flock-tech-guides', // Usually your repo name.
-  deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
