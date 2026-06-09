@@ -1,0 +1,20 @@
+# lychee link checker config.
+# Only external http(s) links are checked here; internal/relative links are
+# already validated by Docusaurus `onBrokenLinks: 'throw'` at build time.
+
+scheme = ["http", "https"]
+
+# Tolerate transient failures and rate limiting (429 != broken).
+max_retries = 3
+retry_wait_time = 2
+accept = ["200..=206", "429"]
+
+# Exclude links that are valid for real users but reject anonymous bots,
+# plus placeholder URLs used as examples in the docs.
+exclude = [
+  # Flock SharePoint / OneDrive — auth-gated, returns 403 to anonymous requests.
+  "sharepoint\\.com",
+  # Example placeholders inside the Docusaurus skill documentation.
+  "mi-org\\.github\\.io",
+  "example\\.com",
+]
