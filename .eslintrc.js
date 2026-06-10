@@ -8,7 +8,8 @@ module.exports = {
   },
   overrides: [
     {
-      // Enforce the Edge/Node boundary: middleware.ts must never import Node-only modules.
+      // Boundary: middleware.ts is the session gate only — it must never pull
+      // in the OAuth flow (or Node-only deps like the removed openid-client).
       files: ["middleware.ts"],
       rules: {
         "no-restricted-imports": [
@@ -18,14 +19,14 @@ module.exports = {
               {
                 name: "openid-client",
                 message:
-                  "middleware.ts runs on Vercel Edge — importing openid-client (Node-only) will break the edge bundle. Use lib/session-edge.ts (jose) instead.",
+                  "openid-client was removed (Node-only, breaks the Edge runtime). Do not reintroduce it — use lib/oauth.ts (fetch + jose + Web Crypto).",
               },
             ],
             patterns: [
               {
-                group: ["**/lib/oauth-node*"],
+                group: ["**/lib/oauth*"],
                 message:
-                  "middleware.ts runs on Vercel Edge — lib/oauth-node.ts is NODE-ONLY. Use lib/session-edge.ts instead.",
+                  "middleware.ts is the session gate only — it must not import the OAuth flow (lib/oauth.ts). Use lib/session-edge.ts instead.",
               },
             ],
           },

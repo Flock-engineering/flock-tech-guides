@@ -3,7 +3,8 @@
  *
  * Runs on every request EXCEPT /api/auth/* (excluded via matcher).
  * Edge Runtime: only edge-safe imports allowed (jose via lib/session-edge.ts).
- * NEVER import openid-client or lib/oauth-node.ts here.
+ * NEVER import the OAuth flow (lib/oauth.ts) here — the gate only verifies
+ * sessions; the flow lives in the /api/auth/* edge functions.
  *
  * Gate logic (FAIL-CLOSED):
  *  1. The gate is ENABLED by default. It is bypassed ONLY on Vercel Preview

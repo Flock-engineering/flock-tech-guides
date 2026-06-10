@@ -1,6 +1,6 @@
 /**
  * GET /api/auth/login
- * Node Runtime (Vercel Serverless Function)
+ * Vercel EDGE Function (Web-standard Request/Response — no Node built-ins)
  *
  * Initiates the OAuth 2.0 Authorization Code flow with PKCE.
  * Generates a random state + PKCE verifier, stores them in transient
@@ -8,23 +8,29 @@
  * authorization URL.
  */
 
-import type { IncomingMessage, ServerResponse } from "node:http";
 import {
   generateState,
   generateCodeVerifier,
   deriveCodeChallenge,
   buildAuthorizationUrl,
-} from "../../lib/oauth-node.js";
+} from "../../lib/oauth.js";
 
-function requireEnv(key: string): string {
-  const value = process.env[key];
-  if (!value) throw new Error(`Missing required env var: ${key}`);
-  return value;
-}
+export const config = { runtime: "edge" };
 
-function getRedirectUri(req: IncomingMessage): string {
-  const host = req.headers["x-forwarded-host"] ?? req.headers["host"] ?? "";
-  const proto = req.headers["x-forwarded-proto"] ?? "https";
+/**
+ * Builds the public origin (proto://host) of this request from forwarded
+ * headers. Must match the origin used by callback.ts so the authorize-step
+ * and token-step redirect_uri agree. If x-forwarded-host carries multiple
+ * comma-joined values, only the first is used.
+ */
+function getRedirectUri(request: Request): string {
+  const rawHost =
+    request.headers.get("x-forwarded-host") ??
+    request.headers.get("host") ??
+    new URL(request.url).host;
+  const host = rawHost.split(",")[0].trim();
+  const proto =
+    (request.headers.get("x-forwarded-proto") ?? "https").split(",")[0].trim();
   return `${proto}://${host}/api/auth/callback`;
 }
 
@@ -32,33 +38,36 @@ function getRedirectUri(req: IncomingMessage): string {
 const TRANSIENT_COOKIE_OPTIONS =
   "HttpOnly; Secure; SameSite=Lax; Path=/api/auth; Max-Age=600";
 
-export default async function handler(
-  req: IncomingMessage,
-  res: ServerResponse
-): Promise<void> {
+export default async function handler(request: Request): Promise<Response> {
   try {
     const state = generateState();
     const codeVerifier = generateCodeVerifier();
     const codeChallenge = await deriveCodeChallenge(codeVerifier);
-    const redirectUri = getRedirectUri(req);
+    const redirectUri = getRedirectUri(request);
 
-    const authorizationUrl = await buildAuthorizationUrl(
+    const authorizationUrl = buildAuthorizationUrl(
       state,
       codeChallenge,
       redirectUri
     );
 
-    res.setHeader("Set-Cookie", [
-      `__oauth_state=${state}; ${TRANSIENT_COOKIE_OPTIONS}`,
-      `__pkce_verifier=${codeVerifier}; ${TRANSIENT_COOKIE_OPTIONS}`,
-    ]);
+    const headers = new Headers({ Location: authorizationUrl.toString() });
+    headers.append(
+      "Set-Cookie",
+      `__oauth_state=${state}; ${TRANSIENT_COOKIE_OPTIONS}`
+    );
+    headers.append(
+      "Set-Cookie",
+      `__pkce_verifier=${codeVerifier}; ${TRANSIENT_COOKIE_OPTIONS}`
+    );
 
-    res.writeHead(302, { Location: authorizationUrl.toString() });
-    res.end();
+    return new Response(null, { status: 302, headers });
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : "Internal Server Error";
-    res.writeHead(500, { "Content-Type": "text/plain" });
-    res.end(`Auth login error: ${message}`);
+    return new Response(`Auth login error: ${message}`, {
+      status: 500,
+      headers: { "Content-Type": "text/plain" },
+    });
   }
 }
