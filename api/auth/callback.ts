@@ -22,13 +22,48 @@ import {
   SESSION_DURATION_SECONDS,
 } from "../../lib/session-edge.js";
 
-function getRedirectUri(req: IncomingMessage): string {
+/**
+ * Builds the public origin (proto://host) of this request using the same
+ * forwarded-host/proto logic as the login step (api/auth/login.ts).
+ *
+ * openid-client v6 derives the token-exchange redirect_uri from the callback
+ * URL it is given, so this MUST match the origin used when the authorize-step
+ * redirect_uri was built — otherwise the token exchange fails (AADSTS50011).
+ */
+function getRequestOrigin(req: IncomingMessage): string {
   const host = req.headers["x-forwarded-host"] ?? req.headers["host"] ?? "";
   const proto = req.headers["x-forwarded-proto"] ?? "https";
-  return `${proto}://${host}/api/auth/callback`;
+  return `${proto}://${host}`;
 }
 
-/** Parses cookie header into a key→value map. */
+/**
+ * Validates a post-login return target. Only same-site relative paths are
+ * allowed, to prevent an open redirect: the value must be an absolute path
+ * ("/..."), must NOT be protocol-relative ("//evil.com"), and must NOT contain
+ * a scheme separator (":"). Anything else falls back to "/".
+ *
+ * The __return_to cookie is HttpOnly, but a non-HttpOnly sibling cookie of the
+ * same name (planted via XSS or a sibling subdomain) is indistinguishable
+ * server-side, so the value must always be validated before use.
+ */
+function safeReturnTo(value: string | undefined): string {
+  if (!value) return "/";
+  if (
+    value.startsWith("/") &&
+    !value.startsWith("//") &&
+    !value.includes(":")
+  ) {
+    return value;
+  }
+  return "/";
+}
+
+/**
+ * Parses cookie header into a key→value map.
+ *
+ * Percent-decoding is wrapped so a malformed value (e.g. a crafted "%zz")
+ * never throws an uncaught URIError; on failure the raw value is kept.
+ */
 function parseCookieHeader(
   cookieHeader: string | undefined
 ): Record<string, string> {
@@ -36,7 +71,14 @@ function parseCookieHeader(
   return Object.fromEntries(
     cookieHeader.split(";").map((pair) => {
       const [k, ...rest] = pair.trim().split("=");
-      return [k.trim(), decodeURIComponent(rest.join("="))];
+      const raw = rest.join("=");
+      let value = raw;
+      try {
+        value = decodeURIComponent(raw);
+      } catch {
+        // Malformed percent-encoding — keep the raw value.
+      }
+      return [k.trim(), value];
     })
   );
 }
@@ -51,10 +93,10 @@ export default async function handler(
   res: ServerResponse
 ): Promise<void> {
   try {
-    const reqUrl = new URL(
-      req.url ?? "/",
-      `https://${req.headers["host"] ?? "localhost"}`
-    );
+    // Build the callback URL from the SAME forwarded-host/proto origin the
+    // login step used. openid-client derives the token-exchange redirect_uri
+    // from this URL, so it must match the authorize-step redirect_uri.
+    const reqUrl = new URL(req.url ?? "/", getRequestOrigin(req));
 
     const cookies = parseCookieHeader(req.headers["cookie"]);
     const storedState = cookies["__oauth_state"];
@@ -76,16 +118,14 @@ export default async function handler(
       return;
     }
 
-    const redirectUri = getRedirectUri(req);
-
-    // Exchange code + validate id_token (includes tid enforcement)
+    // Exchange code + validate id_token (includes tid enforcement).
+    // openid-client derives redirect_uri from reqUrl, so no explicit arg.
     let claims;
     try {
       claims = await exchangeCodeAndValidate(
         reqUrl,
         storedState,
-        codeVerifier,
-        redirectUri
+        codeVerifier
       );
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Unknown error";
@@ -104,8 +144,9 @@ export default async function handler(
     const sessionPayload = buildSessionPayload(claims);
     const sessionToken = await signSession(sessionPayload);
 
-    // Determine where to redirect post-login (stored in returnTo cookie or default /)
-    const returnTo = cookies["__return_to"] ?? "/";
+    // Determine where to redirect post-login. The stored value is validated as
+    // a same-site relative path to prevent an open redirect (NW-3).
+    const returnTo = safeReturnTo(cookies["__return_to"]);
 
     // Set session cookie and clear transient OAuth cookies
     res.setHeader("Set-Cookie", [

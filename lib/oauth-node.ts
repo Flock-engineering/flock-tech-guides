@@ -116,19 +116,21 @@ export interface ValidatedClaims {
 export async function exchangeCodeAndValidate(
   currentUrl: URL,
   expectedState: string,
-  codeVerifier: string,
-  redirectUri: string
+  codeVerifier: string
 ): Promise<ValidatedClaims> {
   const config = await getOAuthConfig();
   const tenantId = requireEnv("ENTRA_TENANT_ID");
 
+  // openid-client v6 derives the token-endpoint redirect_uri from currentUrl
+  // (stripParams of the callback URL). The caller is responsible for building
+  // currentUrl from the same forwarded-host/proto origin used at authorize
+  // time, so the derived redirect_uri matches the one registered in Entra.
+  // Passing an explicit redirect_uri here is a no-op (oauth4webapi overrides
+  // it from currentUrl), so it is intentionally omitted.
   const tokens = await client.authorizationCodeGrant(
     config,
     currentUrl,
-    { pkceCodeVerifier: codeVerifier, expectedState, idTokenExpected: true },
-    // Pass redirect_uri explicitly as token endpoint parameters (openid-client v6 API).
-    // The 4th argument is URLSearchParams forwarded to the token endpoint request.
-    new URLSearchParams({ redirect_uri: redirectUri })
+    { pkceCodeVerifier: codeVerifier, expectedState, idTokenExpected: true }
   );
 
   // Extract the already-validated id_token claims from the token response.
