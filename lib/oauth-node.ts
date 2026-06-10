@@ -122,19 +122,22 @@ export async function exchangeCodeAndValidate(
   const config = await getOAuthConfig();
   const tenantId = requireEnv("ENTRA_TENANT_ID");
 
-  const tokens = await client.authorizationCodeGrant(config, currentUrl, {
-    pkceCodeVerifier: codeVerifier,
-    expectedState,
-    idTokenExpected: true,
-    redirectUri,
-  });
+  const tokens = await client.authorizationCodeGrant(
+    config,
+    currentUrl,
+    { pkceCodeVerifier: codeVerifier, expectedState, idTokenExpected: true },
+    // Pass redirect_uri explicitly as token endpoint parameters (openid-client v6 API).
+    // The 4th argument is URLSearchParams forwarded to the token endpoint request.
+    new URLSearchParams({ redirect_uri: redirectUri })
+  );
 
   // Extract the already-validated id_token claims from the token response.
-  // getValidatedIdTokenClaims returns claims only if id_token is present and
-  // was validated during authorizationCodeGrant.
-  const claims = client.getValidatedIdTokenClaims(tokens);
+  // openid-client v6: claims() is an instance method on TokenEndpointResponse.
+  // authorizationCodeGrant validates sig/iss/aud/exp before returning;
+  // claims() returns the parsed payload only when an id_token is present.
+  const claims = tokens.claims();
   if (!claims) {
-    throw new Error("No validated id_token claims in token response.");
+    throw new Error("No id_token claims in token response.");
   }
 
   // Single-tenant enforcement: tid must match configured Flock tenant.
