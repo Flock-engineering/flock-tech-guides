@@ -57,7 +57,14 @@ function safeReturnTo(value: string | undefined): string {
     const sentinel = "https://h.invalid";
     const url = new URL(value, sentinel);
     if (url.origin !== sentinel) return "/";
-    return url.pathname + url.search + url.hash;
+    const path = url.pathname + url.search + url.hash;
+    // path always starts with "/". A SECOND leading "/" or "\" makes the emitted
+    // relative Location protocol-relative when the browser re-resolves it against
+    // the real origin → cross-origin (e.g. ".//evil.com" normalizes to "//evil.com").
+    // 47 = "/", 92 = "\".
+    const second = path.charCodeAt(1);
+    if (second === 47 || second === 92) return "/";
+    return path;
   } catch {
     return "/";
   }
