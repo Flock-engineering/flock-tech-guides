@@ -37,10 +37,13 @@ function getRequestOrigin(req: IncomingMessage): string {
 }
 
 /**
- * Validates a post-login return target. Only same-site relative paths are
- * allowed, to prevent an open redirect: the value must be an absolute path
- * ("/..."), must NOT be protocol-relative ("//evil.com"), and must NOT contain
- * a scheme separator (":"). Anything else falls back to "/".
+ * Validates a post-login return target to prevent an open redirect. Resolves
+ * the value against a fixed sentinel origin: a genuine same-site relative path
+ * resolves back to the sentinel, while anything that escapes to another origin
+ * ("//evil.com", "/\evil.com" — browsers normalize "\" to "/" — "http://evil.com")
+ * changes the resolved origin and is rejected. String-prefix checks are NOT
+ * enough here: they are bypassable via backslashes, control chars, and encoding.
+ * The normalized path (not the raw input) is returned.
  *
  * The __return_to cookie is HttpOnly, but a non-HttpOnly sibling cookie of the
  * same name (planted via XSS or a sibling subdomain) is indistinguishable
@@ -48,14 +51,16 @@ function getRequestOrigin(req: IncomingMessage): string {
  */
 function safeReturnTo(value: string | undefined): string {
   if (!value) return "/";
-  if (
-    value.startsWith("/") &&
-    !value.startsWith("//") &&
-    !value.includes(":")
-  ) {
-    return value;
+  // Reject control characters outright (defense in depth against \t, \n, etc.).
+  if (/[\x00-\x1f\x7f]/.test(value)) return "/";
+  try {
+    const sentinel = "https://h.invalid";
+    const url = new URL(value, sentinel);
+    if (url.origin !== sentinel) return "/";
+    return url.pathname + url.search + url.hash;
+  } catch {
+    return "/";
   }
-  return "/";
 }
 
 /**
