@@ -18,13 +18,16 @@
     "@docusaurus/theme-mermaid": "^3.10.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
+    "jose": "^6.2.3",
+    "openid-client": "^6.8.4",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.10.1",
-    "@docusaurus/types": "^3.10.1"
+    "@docusaurus/types": "^3.10.1",
+    "@types/node": "^25.9.2"
   },
   "browserslist": {
     "production": [
