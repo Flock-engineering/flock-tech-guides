@@ -1,6 +1,11 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: 2022,
+    sourceType: "module",
+  },
   overrides: [
     {
       // Enforce the Edge/Node boundary: middleware.ts must never import Node-only modules.
@@ -18,7 +23,7 @@ module.exports = {
             ],
             patterns: [
               {
-                group: ["**/lib/oauth-node", "**/lib/oauth-node.ts"],
+                group: ["**/lib/oauth-node*"],
                 message:
                   "middleware.ts runs on Vercel Edge — lib/oauth-node.ts is NODE-ONLY. Use lib/session-edge.ts instead.",
               },
