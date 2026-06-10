@@ -556,6 +556,7 @@ module.exports = {
       type: 'category',
       label: 'Infrastructure',
       items: [
+        'infrastructure/setup-entra-auth',
         {
           type: 'category',
           label: 'IBM Cibersecurity Series 2024',
