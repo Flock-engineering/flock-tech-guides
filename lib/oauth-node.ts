@@ -43,14 +43,10 @@ async function getOAuthConfig(): Promise<client.Configuration> {
 // ---------------------------------------------------------------------------
 
 /**
- * Generates a cryptographically random OAuth state value (hex string).
+ * Generates a cryptographically random OAuth state value.
  */
 export function generateState(): string {
-  const bytes = new Uint8Array(32);
-  crypto.getRandomValues(bytes);
-  return Array.from(bytes)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  return client.randomState();
 }
 
 /**
@@ -93,44 +89,7 @@ export async function buildAuthorizationUrl(
 }
 
 // ---------------------------------------------------------------------------
-// Token exchange
-// ---------------------------------------------------------------------------
-
-export interface TokenSet {
-  id_token: string;
-  access_token?: string;
-}
-
-/**
- * Exchanges an authorization code for tokens using the PKCE verifier.
- */
-export async function exchangeCode(
-  currentUrl: URL,
-  expectedState: string,
-  codeVerifier: string,
-  redirectUri: string
-): Promise<TokenSet> {
-  const config = await getOAuthConfig();
-
-  const tokens = await client.authorizationCodeGrant(config, currentUrl, {
-    pkceCodeVerifier: codeVerifier,
-    expectedState,
-    idTokenExpected: true,
-  });
-
-  const idToken = tokens.id_token;
-  if (!idToken) {
-    throw new Error("No id_token in token response.");
-  }
-
-  return {
-    id_token: idToken,
-    access_token: tokens.access_token,
-  };
-}
-
-// ---------------------------------------------------------------------------
-// id_token validation
+// Token exchange and claim extraction
 // ---------------------------------------------------------------------------
 
 export interface ValidatedClaims {
@@ -141,37 +100,47 @@ export interface ValidatedClaims {
 }
 
 /**
- * Validates the id_token and extracts claims needed for the session.
- * Enforces: signature (via JWKS), issuer, audience, tid (single-tenant), expiry.
- * Returns validated claims on success; throws on any validation failure.
+ * Exchanges an authorization code for tokens using the PKCE verifier,
+ * then extracts and validates the id_token claims.
+ *
+ * openid-client v6 authorizationCodeGrant already validates:
+ *  - JWT signature via JWKS
+ *  - issuer (iss)
+ *  - audience (aud)
+ *  - expiry (exp)
+ *
+ * We additionally enforce the tid claim (single-tenant defense-in-depth).
+ *
+ * Throws on any validation failure.
  */
-export async function validateIdToken(
-  idToken: string
+export async function exchangeCodeAndValidate(
+  currentUrl: URL,
+  expectedState: string,
+  codeVerifier: string,
+  redirectUri: string
 ): Promise<ValidatedClaims> {
   const config = await getOAuthConfig();
   const tenantId = requireEnv("ENTRA_TENANT_ID");
-  const clientId = requireEnv("ENTRA_CLIENT_ID");
 
-  const claims = await client.validateAuthResponse(
-    config,
-    new URL(`?id_token_hint=${encodeURIComponent(idToken)}`, "https://dummy"),
-    undefined
-  );
+  const tokens = await client.authorizationCodeGrant(config, currentUrl, {
+    pkceCodeVerifier: codeVerifier,
+    expectedState,
+    idTokenExpected: true,
+    redirectUri,
+  });
 
-  // Parse and validate the id_token manually via JWKS
-  const parsed = client.getValidatedIdTokenClaims(claims as client.TokenEndpointResponse) ??
-    (() => {
-      throw new Error("Could not extract id_token claims.");
-    })();
-
-  // Explicit audience check
-  const aud = Array.isArray(parsed.aud) ? parsed.aud : [parsed.aud];
-  if (!aud.includes(clientId)) {
-    throw new Error(`id_token audience mismatch. Expected: ${clientId}`);
+  // Extract the already-validated id_token claims from the token response.
+  // getValidatedIdTokenClaims returns claims only if id_token is present and
+  // was validated during authorizationCodeGrant.
+  const claims = client.getValidatedIdTokenClaims(tokens);
+  if (!claims) {
+    throw new Error("No validated id_token claims in token response.");
   }
 
-  // Single-tenant enforcement: tid must match configured tenant
-  const tid = parsed["tid"] as string | undefined;
+  // Single-tenant enforcement: tid must match configured Flock tenant.
+  // This is defense-in-depth — single-tenant registration in Entra already
+  // blocks foreign tenants, but we verify explicitly at claim level.
+  const tid = claims["tid"] as string | undefined;
   if (!tid) {
     throw new Error("id_token missing tid claim.");
   }
@@ -183,14 +152,18 @@ export async function validateIdToken(
 
   return {
     tid,
-    sub: parsed.sub ?? "",
+    sub: claims.sub ?? "",
     email:
-      (parsed["email"] as string | undefined) ??
-      (parsed["preferred_username"] as string | undefined) ??
+      (claims["email"] as string | undefined) ??
+      (claims["preferred_username"] as string | undefined) ??
       "",
-    name: (parsed["name"] as string | undefined) ?? "",
+    name: (claims["name"] as string | undefined) ?? "",
   };
 }
+
+// ---------------------------------------------------------------------------
+// Session payload builder
+// ---------------------------------------------------------------------------
 
 /**
  * Builds a SessionPayload from validated id_token claims.

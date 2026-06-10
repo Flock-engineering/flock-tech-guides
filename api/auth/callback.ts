@@ -5,7 +5,7 @@
  * Handles the OAuth callback from Microsoft Entra:
  * 1. Validates state (CSRF guard).
  * 2. Exchanges the authorization code for tokens via PKCE.
- * 3. Validates the id_token (signature, issuer, audience, tid, expiry).
+ * 3. Validates the id_token (signature via JWKS, issuer, audience, tid, expiry).
  * 4. Enforces single-tenant: rejects non-Flock tid with 403.
  * 5. Signs and sets the __session cookie (HS256 JWT, 8h).
  * 6. Clears transient PKCE cookies.
@@ -13,22 +13,14 @@
  */
 
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { parse as parseCookies } from "node:querystring";
 import {
-  exchangeCode,
-  validateIdToken,
+  exchangeCodeAndValidate,
   buildSessionPayload,
 } from "../../lib/oauth-node.js";
 import {
   signSession,
   SESSION_DURATION_SECONDS,
 } from "../../lib/session-edge.js";
-
-function requireEnv(key: string): string {
-  const value = process.env[key];
-  if (!value) throw new Error(`Missing required env var: ${key}`);
-  return value;
-}
 
 function getRedirectUri(req: IncomingMessage): string {
   const host = req.headers["x-forwarded-host"] ?? req.headers["host"] ?? "";
@@ -49,7 +41,7 @@ function parseCookieHeader(
   );
 }
 
-/** Returns Set-Cookie value that clears the named cookie. */
+/** Returns a Set-Cookie value that clears the named cookie. */
 function clearCookie(name: string, path: string): string {
   return `${name}=; HttpOnly; Secure; SameSite=Lax; Path=${path}; Max-Age=0`;
 }
@@ -75,7 +67,8 @@ export default async function handler(
       return;
     }
 
-    // State validation (CSRF guard)
+    // State validation (CSRF guard) — checked again inside authorizationCodeGrant,
+    // but we gate here to fail fast with a clear error before making any network calls.
     const incomingState = reqUrl.searchParams.get("state");
     if (!incomingState || incomingState !== storedState) {
       res.writeHead(403, { "Content-Type": "text/plain" });
@@ -85,25 +78,22 @@ export default async function handler(
 
     const redirectUri = getRedirectUri(req);
 
-    // Exchange code for tokens
-    const tokens = await exchangeCode(
-      reqUrl,
-      storedState,
-      codeVerifier,
-      redirectUri
-    );
-
-    // Validate id_token and enforce single-tenant (tid check)
+    // Exchange code + validate id_token (includes tid enforcement)
     let claims;
     try {
-      claims = await validateIdToken(tokens.id_token);
+      claims = await exchangeCodeAndValidate(
+        reqUrl,
+        storedState,
+        codeVerifier,
+        redirectUri
+      );
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      const isTenantError =
+      const isTenantOrAudienceError =
         message.includes("Tenant mismatch") ||
         message.includes("tid") ||
         message.includes("audience");
-      res.writeHead(isTenantError ? 403 : 400, {
+      res.writeHead(isTenantOrAudienceError ? 403 : 400, {
         "Content-Type": "text/plain",
       });
       res.end(`Authentication rejected: ${message}`);
@@ -114,10 +104,10 @@ export default async function handler(
     const sessionPayload = buildSessionPayload(claims);
     const sessionToken = await signSession(sessionPayload);
 
-    // Determine where to redirect post-login (stored in a returnTo cookie or default /)
+    // Determine where to redirect post-login (stored in returnTo cookie or default /)
     const returnTo = cookies["__return_to"] ?? "/";
 
-    // Clear transient cookies and set the session cookie
+    // Set session cookie and clear transient OAuth cookies
     res.setHeader("Set-Cookie", [
       `__session=${sessionToken}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${SESSION_DURATION_SECONDS}`,
       clearCookie("__oauth_state", "/api/auth"),
