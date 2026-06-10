@@ -5,8 +5,12 @@
  * Edge Runtime: only edge-safe imports allowed (jose via lib/session-edge.ts).
  * NEVER import openid-client or lib/oauth-node.ts here.
  *
- * Gate logic:
- *  1. If AUTH_ENABLED !== 'true' → pass through (preview bypass).
+ * Gate logic (FAIL-CLOSED):
+ *  1. The gate is ENABLED by default. It is bypassed ONLY on Vercel Preview
+ *     deployments (process.env.VERCEL_ENV === 'preview'), whose dynamic URLs
+ *     cannot be registered as Entra redirect URIs. Any other environment —
+ *     including Production with a missing/renamed flag — stays GATED.
+ *     A lost env var must NEVER silently expose the site.
  *  2. Verify __session cookie (HS256 JWT via jose).
  *     - Valid session → next().
  *     - Missing / expired / invalid → 302 to /api/auth/login with __return_to cookie.
@@ -18,23 +22,31 @@
 import { verifySession } from "./lib/session-edge.js";
 
 /**
- * Parses the Cookie header and returns the value for the given cookie name.
- * Uses a simple regex to avoid pulling in any cookie-parsing dependency.
+ * Parses the Cookie header and returns the raw value for the given cookie name.
+ *
+ * NOTE: the value is returned WITHOUT percent-decoding. A signed JWT never
+ * contains characters that require URI decoding, and calling
+ * decodeURIComponent on an attacker-crafted value (e.g. "%zz") throws an
+ * uncaught URIError → 500 instead of the spec-mandated 302. Skipping the
+ * decode keeps the gate fail-safe for malformed cookies.
  */
 function getCookieValue(cookieHeader: string | null, name: string): string | undefined {
   if (!cookieHeader) return undefined;
   for (const pair of cookieHeader.split(";")) {
     const [k, ...rest] = pair.trim().split("=");
     if (k.trim() === name) {
-      return decodeURIComponent(rest.join("="));
+      return rest.join("=");
     }
   }
   return undefined;
 }
 
 export default async function middleware(request: Request): Promise<Response> {
-  // Preview / staging bypass: gate is only active when AUTH_ENABLED === 'true'
-  if (process.env.AUTH_ENABLED !== "true") {
+  // FAIL-CLOSED preview bypass: the gate is active everywhere EXCEPT Vercel
+  // Preview deployments. We bypass ONLY on an explicit "preview" environment,
+  // never on the absence of a flag — so a lost/renamed env var can never
+  // silently make Production public.
+  if (process.env.VERCEL_ENV === "preview") {
     return new Response(null, { status: 200, headers: { "x-middleware-next": "1" } });
   }
 
