@@ -12,7 +12,11 @@ module.exports = {
         {
           type: 'category',
           label: 'Artículos',
-          items: ['ia/compact-your-context', 'ia/claude-code-permisos'],
+          items: [
+            'ia/compact-your-context',
+            'ia/claude-code-permisos',
+            'ia/claude-code-settings',
+          ],
         },
         {
           type: 'category',
