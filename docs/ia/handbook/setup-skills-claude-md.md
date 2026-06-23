@@ -77,26 +77,86 @@ El CLAUDE.md se carga en contexto en CADA interaccion — siempre consume tokens
 
 ## Skills — expertise reutilizable
 
-Un Skill es un archivo `SKILL.md` con instrucciones para un tipo de tarea especifico: crear componentes Angular, configurar Docker, escribir tests con Vitest. Cada Skill tiene un **trigger** que le dice a Claude Code CUANDO cargarlo.
+Un Skill es un archivo `SKILL.md` con instrucciones para un tipo de tarea específico: crear componentes Angular, configurar Docker, escribir tests con Vitest. Lo que le dice a Claude Code CUÁNDO cargarlo vive en el frontmatter, en el campo `description`.
 
 ```markdown title=".claude/skills/angular/SKILL.md"
+---
+name: angular
+description: Angular moderno con standalone components y signals. Usar al crear o refactorizar componentes, servicios o routing en Angular.
+---
+
 # Angular — Standalone Components
 
-## Trigger
-Crear componente Angular, refactorizar componente, routing Angular
-
-## Reglas
 - Siempre standalone: true (no NgModules)
 - Signals para estado, no BehaviorSubject
 - OnPush change detection obligatorio
-- Smart/Dumb: containers manejan logica, presentationals solo @Input/@Output
+- Smart/Dumb: containers manejan lógica, presentationals solo @Input/@Output
 ```
 
-La diferencia con CLAUDE.md es que un Skill NO se carga siempre — solo cuando el contexto de la tarea matchea su trigger. Si le pedis a Claude Code que escriba un Dockerfile, no necesita tus reglas de Angular. Cada Skill es expertise on-demand.
+La diferencia con CLAUDE.md es que un Skill NO se carga siempre — solo cuando la tarea matchea su `description`. Si le pedís a Claude Code que escriba un Dockerfile, no necesita tus reglas de Angular. Cada Skill es expertise on-demand.
 
 :::info[Donde viven los Skills]
-En `~/.claude/skills/` (globales, para todos tus proyectos) o en `.claude/skills/` dentro del repo (compartidos con el equipo). Los del proyecto tienen prioridad sobre los globales.
+En `~/.claude/skills/` (globales, para todos tus proyectos) o en `.claude/skills/` dentro del repo (compartidos con el equipo).
 :::
+
+### Precedencia: quién le gana a quién
+
+Si un skill con el **mismo nombre** existe en varios niveles, el orden de prioridad (de mayor a menor) es:
+
+1. **Empresa** (gestionados por la organización)
+2. **Personal / global** (`~/.claude/skills/`)
+3. **Proyecto** (`.claude/skills/` del repo)
+4. **Bundled** (los que trae Claude Code de fábrica)
+
+:::warning[Ojo — es al revés que en CLAUDE.md y settings.json]
+En `settings.json` (y en CLAUDE.md) lo más específico gana: el proyecto pisa a lo global. **En Skills es al revés**: tu skill personal pisa al del proyecto. Si tenés un `deploy` en `~/.claude/skills/` y el repo trae otro `deploy` en `.claude/skills/`, se ejecuta el TUYO — el del equipo queda tapado. Tenelo presente si un skill del proyecto "no hace lo que dice el repo": probablemente tengas uno personal con el mismo nombre.
+:::
+
+---
+
+## Anatomía de un Skill
+
+Un `SKILL.md` tiene dos partes: el **frontmatter** (metadata en YAML) y el **cuerpo** (las instrucciones en Markdown).
+
+```markdown title="SKILL.md"
+---
+name: docker
+description: Buenas prácticas de Docker — multi-stage builds, imágenes livianas, security. Usar al crear Dockerfiles, docker-compose o al optimizar imágenes.
+---
+
+# Acá van las instrucciones que Claude sigue cuando carga el skill...
+```
+
+El campo `description` es **lo más importante de todo el archivo**. Es el único texto del skill que Claude ve siempre, y es lo que usa para decidir si el skill aplica a tu tarea. Si la descripción es vaga, el skill no se va a disparar cuando lo necesitás; si es precisa (qué hace + cuándo usarlo), Claude lo carga en el momento justo. El campo `name` es opcional — por defecto toma el nombre de la carpeta.
+
+:::tip[Cómo se dispara la carga — progressive disclosure]
+Claude **no** carga el cuerpo de todos tus skills de entrada. Mantiene en contexto solo las `description` de cada uno (baratas en tokens). Cuando tu pedido matchea una descripción, ahí recién carga el `SKILL.md` completo. Esto se llama *progressive disclosure*: pagás el costo de contexto solo por el skill que realmente usás.
+:::
+
+Un skill puede **empaquetar archivos de apoyo** en su carpeta — docs de referencia, templates, scripts — y referenciarlos desde el cuerpo del `SKILL.md`. Esos archivos NO se cargan solos: Claude los lee solo cuando el `SKILL.md` le indica que los necesita. Así un skill puede ser enorme en conocimiento sin pesar en contexto hasta que hace falta.
+
+```
+docker/
+├── SKILL.md            # Puerta de entrada — frontmatter + instrucciones
+├── multi-stage.md      # Referencia detallada (se carga on-demand)
+└── scripts/
+    └── scan-image.sh   # Script ejecutable que el skill puede invocar
+```
+
+---
+
+## Skills vs otros mecanismos
+
+Claude Code tiene varios mecanismos de extensión y es fácil confundirlos. Cada uno resuelve un problema distinto:
+
+| Mecanismo | Qué es | Cuándo usarlo |
+|---|---|---|
+| **Skills** | Instrucciones reutilizables que Claude carga en contexto cuando la tarea matchea su `description` | Expertise repetible: "cómo hago X tipo de tarea" (componentes, tests, Dockerfiles) |
+| **Subagents** | Un agente con contexto aislado, system prompt propio y herramientas acotadas | Tareas que conviene delegar a una ventana de contexto fresca (review, exploración, trabajo paralelo) |
+| **MCP** | Conexión a herramientas y datos externos (APIs, bases de datos, servicios) | Darle a Claude *capacidades* nuevas: leer Jira, consultar una DB, llamar una API |
+| **Slash commands** | Atajos que invocás manualmente con `/` | Disparar una acción puntual a pedido; hoy se apoyan en el mismo sistema de skills |
+
+La distinción clave: **Skills son instrucciones** (el "cómo"), **MCP son capacidades** (el "con qué"), y **Subagents son contexto aislado** (el "dónde se ejecuta").
 
 ---
 
