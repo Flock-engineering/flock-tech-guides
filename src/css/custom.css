@@ -13,7 +13,7 @@
  *   Code     : JetBrains Mono
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
 
 /* ─── Tokens ────────────────────────────────────────────────────── */
 :root {
@@ -38,6 +38,8 @@
   --ifm-font-family-base: 'DM Sans', system-ui, -apple-system, sans-serif;
   --ifm-heading-font-family: 'Syne', system-ui, sans-serif;
   --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+  /* Display font for the landing hero/cards (tighter than Syne at big sizes) */
+  --flock-display-font: 'Bricolage Grotesque', 'Syne', system-ui, sans-serif;
 
   --ifm-font-size-base: 15.5px;
   --ifm-line-height-base: 1.7;
