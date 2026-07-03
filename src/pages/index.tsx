@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, type ReactNode} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState, type ReactNode} from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -83,24 +83,41 @@ function useReducedMotion(): boolean {
 
 /* ── Effect B: headline that "compiles" (decode / scramble) ── */
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/=><$@01?';
+const rnd = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+const scrambleAll = (text: string) =>
+  text.split('').map((ch) => (ch === ' ' ? ' ' : rnd())).join('');
+const mix = (text: string, revealed: number) =>
+  text.split('').map((ch, i) => (ch === ' ' ? ' ' : i < revealed ? ch : rnd())).join('');
+
+// Run a layout effect on the client, but fall back to a no-op effect during SSR.
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 function DecodeText({text, play}: {text: string; play: boolean}) {
-  const [out, setOut] = useState(play ? '' : text);
+  // SSR / no-JS / reduced-motion render the real title (SEO-safe, never blank).
+  const [out, setOut] = useState(text);
+
+  // Before the first client paint, swap to a fully-scrambled string so the
+  // headline visibly "compiles" instead of finishing before it's on screen.
+  useIsoLayoutEffect(() => {
+    if (play) setOut(scrambleAll(text));
+  }, [play, text]);
+
   useEffect(() => {
     if (!play) { setOut(text); return; }
     let frame = 0;
-    const id = setInterval(() => {
-      const revealed = Math.floor(frame / 2);
-      setOut(
-        text
-          .split('')
-          .map((ch, i) => (ch === ' ' ? ' ' : i < revealed ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))
-          .join(''),
-      );
-      frame++;
-      if (revealed > text.length) { clearInterval(id); setOut(text); }
-    }, 40);
-    return () => clearInterval(id);
+    let interval: ReturnType<typeof setInterval>;
+    // Hold the scrambled state briefly (so it's noticed after paint), then resolve.
+    const start = setTimeout(() => {
+      interval = setInterval(() => {
+        const revealed = Math.floor(frame / 2);
+        setOut(mix(text, revealed));
+        frame++;
+        if (revealed > text.length) { clearInterval(interval); setOut(text); }
+      }, 45);
+    }, 480);
+    return () => { clearTimeout(start); clearInterval(interval); };
   }, [text, play]);
+
   return <>{out}</>;
 }
 
