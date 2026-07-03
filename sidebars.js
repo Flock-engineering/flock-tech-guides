@@ -4,10 +4,12 @@ module.exports = {
       type: 'doc',
       id: 'intro',
       label: 'Introducción',
+      className: 'sidebar-icon-intro',
     },
     {
       type: 'category',
       label: 'IA',
+      className: 'sidebar-icon-ia',
       items: [
         {
           type: 'category',
@@ -495,6 +497,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Backend',
+      className: 'sidebar-icon-backend',
       items: [
         {
           type: 'category',
@@ -511,6 +514,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Front-end',
+      className: 'sidebar-icon-frontend',
       items: [
         {
           type: 'category',
@@ -527,6 +531,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Development',
+      className: 'sidebar-icon-development',
       items: [
         'development/postman-use-guide',
         'development/redhat-dependency-analitycs/redhat-dependency-analitycs',
@@ -547,6 +552,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Proyectos',
+      className: 'sidebar-icon-proyectos',
       items: [
         {
           type: 'category',
@@ -567,6 +573,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Infrastructure',
+      className: 'sidebar-icon-infrastructure',
       items: [
         'infrastructure/setup-entra-auth',
         {
@@ -584,6 +591,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Presentaciones',
+      className: 'sidebar-icon-presentaciones',
       items: [
         'presentaciones/docusaurus',
         'presentaciones/charlas-flock',
