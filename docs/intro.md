@@ -1,5 +1,5 @@
 ---
-slug: /
+slug: /introduccion
 id: intro
 title: Introducción
 sidebar_label: Introducción
