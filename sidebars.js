@@ -366,6 +366,14 @@ module.exports = {
                 },
                 {
                   type: 'category',
+                  label: 'Functional Decision',
+                  items: [
+                    'ia/claude-skills/functional-decision-skill',
+                    'ia/claude-skills/functional-decision-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
                   label: 'Post-Work Summary',
                   items: [
                     'ia/claude-skills/post-work-skill',
