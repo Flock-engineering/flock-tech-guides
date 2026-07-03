@@ -1,4 +1,4 @@
-import React, {type ReactNode} from 'react';
+import React, {useEffect, useRef, useState, type ReactNode} from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -23,8 +23,7 @@ const icons = {
   ),
   backend: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="6" rx="1.5" /><rect x="3" y="14" width="18" height="6" rx="1.5" />
-      <path d="M7 7h.01M7 17h.01" />
+      <rect x="3" y="4" width="18" height="6" rx="1.5" /><rect x="3" y="14" width="18" height="6" rx="1.5" /><path d="M7 7h.01M7 17h.01" />
     </svg>
   ),
   frontend: (
@@ -61,60 +60,80 @@ const arrow = (
 );
 
 const SECTIONS: Section[] = [
-  {
-    title: 'IA',
-    tag: 'Destacado',
-    featured: true,
-    href: '/ia/handbook/manifiesto',
-    desc: 'El Handbook IA, el catálogo de skills de Claude, templates de CLAUDE.md y buenas prácticas para trabajar con inteligencia artificial.',
-    icon: icons.ia,
-  },
-  {
-    title: 'Backend',
-    href: '/backend/java',
-    desc: 'Estándares y referencias para Java, .NET y los frameworks de backend del equipo.',
-    icon: icons.backend,
-  },
-  {
-    title: 'Front-end',
-    href: '/front-end/angular',
-    desc: 'Convenciones y setups para Angular, React y el stack de frontend.',
-    icon: icons.frontend,
-  },
-  {
-    title: 'Development',
-    href: '/development/postman-use-guide',
-    desc: 'Herramientas, style guides y estándares de linteo del día a día.',
-    icon: icons.development,
-  },
-  {
-    title: 'Infraestructura',
-    href: '/infrastructure/setup-entra-auth',
-    desc: 'Seguridad, autenticación y arquitectura cloud.',
-    icon: icons.infra,
-  },
-  {
-    title: 'Proyectos',
-    href: '/proyectos/pibot/documento-funcional',
-    desc: 'Documentación técnica de proyectos internos.',
-    icon: icons.proyectos,
-  },
-  {
-    title: 'Presentaciones',
-    href: '/presentaciones/docusaurus',
-    desc: 'Charlas y material de knowledge sharing del equipo.',
-    icon: icons.presentaciones,
-  },
+  {title: 'IA', tag: 'Destacado', featured: true, href: '/ia/handbook/manifiesto', desc: 'El Handbook IA, el catálogo de skills de Claude, templates de CLAUDE.md y buenas prácticas para trabajar con inteligencia artificial.', icon: icons.ia},
+  {title: 'Backend', href: '/backend/java', desc: 'Estándares y referencias para Java, .NET y los frameworks de backend del equipo.', icon: icons.backend},
+  {title: 'Front-end', href: '/front-end/angular', desc: 'Convenciones y setups para Angular, React y el stack de frontend.', icon: icons.frontend},
+  {title: 'Development', href: '/development/postman-use-guide', desc: 'Herramientas, style guides y estándares de linteo del día a día.', icon: icons.development},
+  {title: 'Infraestructura', href: '/infrastructure/setup-entra-auth', desc: 'Seguridad, autenticación y arquitectura cloud.', icon: icons.infra},
+  {title: 'Proyectos', href: '/proyectos/pibot/documento-funcional', desc: 'Documentación técnica de proyectos internos.', icon: icons.proyectos},
+  {title: 'Presentaciones', href: '/presentaciones/docusaurus', desc: 'Charlas y material de knowledge sharing del equipo.', icon: icons.presentaciones},
 ];
 
-function Hero() {
+function useReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const m = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(m.matches);
+    const h = () => setReduced(m.matches);
+    m.addEventListener('change', h);
+    return () => m.removeEventListener('change', h);
+  }, []);
+  return reduced;
+}
+
+/* ── Effect B: headline that "compiles" (decode / scramble) ── */
+const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/=><$@01?';
+function DecodeText({text, play}: {text: string; play: boolean}) {
+  const [out, setOut] = useState(play ? '' : text);
+  useEffect(() => {
+    if (!play) { setOut(text); return; }
+    let frame = 0;
+    const id = setInterval(() => {
+      const revealed = Math.floor(frame / 2);
+      setOut(
+        text
+          .split('')
+          .map((ch, i) => (ch === ' ' ? ' ' : i < revealed ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))
+          .join(''),
+      );
+      frame++;
+      if (revealed > text.length) { clearInterval(id); setOut(text); }
+    }, 40);
+    return () => clearInterval(id);
+  }, [text, play]);
+  return <>{out}</>;
+}
+
+/* ── Effect A: cursor-reactive living background ── */
+function LivingBg() {
   return (
-    <header className={styles.hero}>
+    <div className={styles.livingBg} aria-hidden>
+      <span className={`${styles.blob} ${styles.blobA}`} />
+      <span className={`${styles.blob} ${styles.blobB}`} />
+      <div className={styles.gridReveal} />
+      <div className={styles.spot} />
+    </div>
+  );
+}
+
+function Hero({motion}: {motion: boolean}) {
+  const ref = useRef<HTMLElement>(null);
+  const onMove = (e: React.MouseEvent) => {
+    if (!motion || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    ref.current.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    ref.current.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
+  return (
+    <header className={styles.hero} ref={ref} onMouseMove={onMove}>
+      {motion && <LivingBg />}
       <div className={styles.heroInner}>
         <span className={styles.eyebrow}>Documentación interna · Flock Engineering</span>
         <h1 className={styles.title}>
-          El conocimiento del equipo,{' '}
-          <span className={styles.titleAccent}>en un solo lugar.</span>
+          <DecodeText text="El conocimiento del equipo, " play={motion} />
+          <span className={styles.titleAccent}>
+            <DecodeText text="en un solo lugar." play={motion} />
+          </span>
         </h1>
         <p className={styles.subtitle}>
           Guías, estándares y recursos para trabajar de forma consistente en todos
@@ -148,7 +167,49 @@ function Hero() {
   );
 }
 
-function Sections() {
+function SectionCard({sec, index, motion}: {sec: Section; index: number; motion: boolean}) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const onMove = (e: React.MouseEvent) => {
+    if (!motion || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    ref.current.style.setProperty('--ry', `${(px - 0.5) * 10}deg`);
+    ref.current.style.setProperty('--rx', `${(0.5 - py) * 10}deg`);
+    ref.current.style.setProperty('--gx', `${px * 100}%`);
+    ref.current.style.setProperty('--gy', `${py * 100}%`);
+  };
+  const onLeave = () => {
+    if (!ref.current) return;
+    ref.current.style.setProperty('--rx', '0deg');
+    ref.current.style.setProperty('--ry', '0deg');
+  };
+  return (
+    <Link
+      ref={ref}
+      to={sec.href}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={`${styles.card} ${sec.featured ? styles.cardFeatured : ''} ${motion ? styles.tilt : ''}`}
+      style={{animationDelay: `${0.05 * index}s`}}>
+      {motion && sec.featured && (
+        <span className={styles.beamWrap} aria-hidden><span className={styles.beamMask} /></span>
+      )}
+      {motion && <span className={styles.glare} aria-hidden />}
+      <span className={styles.cardBody}>
+        <span className={styles.cardIcon}>{sec.icon}</span>
+        <h3 className={styles.cardTitle}>
+          {sec.title}
+          {sec.tag && <span className={styles.cardTag}>{sec.tag}</span>}
+        </h3>
+        <p className={styles.cardDesc}>{sec.desc}</p>
+        <span className={styles.cardLink}>Entrar {arrow}</span>
+      </span>
+    </Link>
+  );
+}
+
+function Sections({motion}: {motion: boolean}) {
   return (
     <section className={styles.sections}>
       <div className={styles.sectionsHead}>
@@ -156,23 +217,8 @@ function Sections() {
         <h2 className={styles.sectionsTitle}>¿Qué vas a encontrar?</h2>
       </div>
       <div className={styles.grid}>
-        {SECTIONS.map((s, i) => (
-          <Link
-            key={s.title}
-            to={s.href}
-            className={`${styles.card} ${s.featured ? styles.cardFeatured : ''}`}
-            style={{animationDelay: `${0.05 * i}s`}}
-          >
-            <span className={styles.cardIcon}>{s.icon}</span>
-            <h3 className={styles.cardTitle}>
-              {s.title}
-              {s.tag && <span className={styles.cardTag}>{s.tag}</span>}
-            </h3>
-            <p className={styles.cardDesc}>{s.desc}</p>
-            <span className={styles.cardLink}>
-              Entrar {arrow}
-            </span>
-          </Link>
+        {SECTIONS.map((sec, i) => (
+          <SectionCard key={sec.title} sec={sec} index={i} motion={motion} />
         ))}
       </div>
     </section>
@@ -181,13 +227,15 @@ function Sections() {
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
+  const reduced = useReducedMotion();
+  const motion = !reduced;
   return (
     <Layout
       title={siteConfig.title}
       description="Guías técnicas, estándares y recursos del equipo de ingeniería de Flock.">
       <main>
-        <Hero />
-        <Sections />
+        <Hero motion={motion} />
+        <Sections motion={motion} />
       </main>
     </Layout>
   );
