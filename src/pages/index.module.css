@@ -289,3 +289,113 @@
   .stats { gap: 1.8rem; }
   .sections { padding: 3rem 1.25rem 4rem; }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   Interactive effects — living hero (A) + decode (B) + tilt cards (C)
+   All are gated behind prefers-reduced-motion in the component.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── A · Living hero background ─────────────────────────────────── */
+.livingBg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.gridReveal {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(199, 158, 232, 0.38) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 158, 232, 0.38) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask: radial-gradient(240px 240px at var(--mx, 50%) var(--my, 30%), #000 0%, transparent 72%);
+  mask: radial-gradient(240px 240px at var(--mx, 50%) var(--my, 30%), #000 0%, transparent 72%);
+}
+.spot {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(360px 360px at var(--mx, 50%) var(--my, 30%), rgba(240, 80, 35, 0.20), transparent 65%);
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  opacity: 0.5;
+}
+.blobA {
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(139, 61, 184, 0.6), transparent 70%);
+  top: -90px; left: 6%;
+  animation: drift1 15s ease-in-out infinite;
+}
+.blobB {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(240, 80, 35, 0.42), transparent 70%);
+  bottom: -110px; right: 8%;
+  animation: drift2 19s ease-in-out infinite;
+}
+@keyframes drift1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(42px, 30px); } }
+@keyframes drift2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-52px, -26px); } }
+
+/* ─── C · Interactive cards (tilt + glare + beam) ────────────────── */
+.card.tilt {
+  transform: perspective(820px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease, border-color 0.18s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+.card.tilt:hover {
+  transform: perspective(820px) translateY(-4px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+.glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 12px;
+  background: radial-gradient(220px 220px at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.16), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.card.tilt:hover .glare { opacity: 1; }
+
+/* Rotating border beam (featured card) */
+.beamWrap {
+  position: absolute;
+  inset: -1.5px;
+  z-index: 0;
+  border-radius: 13px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.beamWrap::before {
+  content: '';
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(from 0deg, transparent 0 60%, var(--flock-orange-light) 72%, var(--flock-orange) 80%, transparent 90% 100%);
+  animation: spinBeam 3.5s linear infinite;
+}
+.beamMask {
+  position: absolute;
+  inset: 1.5px;
+  z-index: 1;
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 100% at 100% 0%, rgba(240, 80, 35, 0.08), transparent 60%),
+    var(--ifm-background-surface-color);
+}
+@keyframes spinBeam { to { transform: rotate(360deg); } }
+
+/* Respect reduced motion for the always-on animations */
+@media (prefers-reduced-motion: reduce) {
+  .blobA, .blobB, .beamWrap::before { animation: none; }
+}
