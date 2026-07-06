@@ -65,4 +65,4 @@ npx ts-node prisma/seed.ts
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Intermedio
+**Tipo:** Automático por inferencia

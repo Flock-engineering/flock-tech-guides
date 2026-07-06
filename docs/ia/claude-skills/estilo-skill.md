@@ -50,4 +50,4 @@ Siempre. El `auto_invoke` está configurado con `'*'` — aplica a todas las con
 
 ## Nivel de aplicación
 
-**Tipo:** Automático universal | **Nivel:** Meta — aplica a todas las interacciones
+**Tipo:** Automático universal

@@ -49,4 +49,4 @@ Claude lo invoca automáticamente al detectar:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Básico
+**Tipo:** Automático por inferencia

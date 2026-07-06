@@ -64,4 +64,4 @@ Cuando Claude crea un diseño visual, este skill le indica:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por palabras clave | **Nivel:** Avanzado | **Output:** `.pdf` o `.png` + `.md` filosofía
+**Tipo:** Automático por palabras clave | **Output:** `.pdf` o `.png` + `.md` filosofía

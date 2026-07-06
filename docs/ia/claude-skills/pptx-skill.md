@@ -70,4 +70,4 @@ pdftoppm -jpeg -r 150 output.pdf slide
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por detección de `.pptx` o palabras clave | **Nivel:** Avanzado | **Formato:** `.pptx`
+**Tipo:** Automático por detección de `.pptx` o palabras clave | **Formato:** `.pptx`

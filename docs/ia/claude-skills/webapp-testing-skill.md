@@ -81,4 +81,4 @@ page.locator('button').all()
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Intermedio | **Browser:** Chromium headless | **Framework:** Playwright
+**Tipo:** Automático por inferencia | **Browser:** Chromium headless | **Framework:** Playwright

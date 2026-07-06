@@ -110,4 +110,4 @@ Si el README está desactualizado o incompleto, propone cambios:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Operacional
+**Tipo:** Automático por inferencia

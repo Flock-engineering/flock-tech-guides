@@ -74,4 +74,4 @@ Los scopes definen en qué contexto del proyecto se activa el skill:
 
 ## Nivel de aplicación
 
-**Tipo:** Manual | **Nivel:** Avanzado
+**Tipo:** Manual

@@ -72,4 +72,4 @@ pip install pillow imageio numpy
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Intermedio | **Output:** `.gif` | **Slack:** ✅
+**Tipo:** Automático por inferencia | **Output:** `.gif` | **Slack:** ✅

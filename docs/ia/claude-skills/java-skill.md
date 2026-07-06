@@ -192,4 +192,4 @@ Map<UserRole, List<User>> byRole = users.stream()
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Avanzado | **Java:** 17+ | **Lombok:** 1.18+
+**Tipo:** Automático por inferencia | **Java:** 17+ | **Lombok:** 1.18+

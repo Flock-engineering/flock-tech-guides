@@ -90,4 +90,4 @@ def add_slide_title(slide, title: str, subtitle: str = '') -> None:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Avanzado
+**Tipo:** Automático por inferencia

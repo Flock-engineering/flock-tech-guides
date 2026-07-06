@@ -57,4 +57,4 @@ GOOGLE_APPLICATION_CREDENTIALS=./gcp-credentials.json
 
 ## Nivel de aplicación
 
-**Tipo:** Manual | **Nivel:** Avanzado
+**Tipo:** Manual

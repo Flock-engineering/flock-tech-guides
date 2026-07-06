@@ -89,4 +89,4 @@ export class UserCardComponent {
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Avanzado
+**Tipo:** Automático por inferencia

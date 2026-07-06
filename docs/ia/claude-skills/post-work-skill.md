@@ -76,4 +76,4 @@ Se activa automáticamente al completar cualquier tarea que involucre:
 
 ## Nivel de aplicación
 
-**Tipo:** Siempre activo | **Nivel:** Meta / Observabilidad
+**Tipo:** Siempre activo
