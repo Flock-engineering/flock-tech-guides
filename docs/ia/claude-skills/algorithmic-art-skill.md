@@ -63,4 +63,4 @@ Cuando Claude crea arte algorítmico, este skill le indica:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por palabras clave | **Nivel:** Avanzado | **Output:** `.html` interactivo + `.md` filosofía
+**Tipo:** Automático por palabras clave | **Output:** `.html` interactivo + `.md` filosofía

@@ -176,4 +176,4 @@ Claude va a leer el archivo adjunto, crearlo en la ruta correcta y confirmar la 
 
 ## Nivel de aplicación
 
-**Tipo:** Manual o automático por inferencia | **Nivel:** Intermedio
+**Tipo:** Manual o automático por inferencia

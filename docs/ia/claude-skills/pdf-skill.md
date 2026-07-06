@@ -86,4 +86,4 @@ doc.build([Paragraph("Contenido", getSampleStyleSheet()['Normal'])])
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por detección de `.pdf` | **Nivel:** Intermedio | **Formato:** `.pdf`
+**Tipo:** Automático por detección de `.pdf` | **Formato:** `.pdf`

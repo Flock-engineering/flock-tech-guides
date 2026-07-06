@@ -89,4 +89,4 @@ ws_index   = wb.create_sheet(title="Índice", index=0)
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Intermedio | **Formato:** `.xlsx` | **SharePoint:** ✅
+**Tipo:** Automático por inferencia | **Formato:** `.xlsx` | **SharePoint:** ✅

@@ -70,4 +70,4 @@ Una decisión no es inmutable. Cuando una nueva la reemplaza, se enlazan con `su
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Intermedio
+**Tipo:** Automático por inferencia
