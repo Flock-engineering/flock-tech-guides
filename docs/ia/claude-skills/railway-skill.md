@@ -91,4 +91,4 @@ Claude lo invoca automáticamente al detectar:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Crítico — alta protección ante acciones irreversibles
+**Tipo:** Automático por inferencia

@@ -79,4 +79,4 @@ El skill impone un flujo de PR explícito:
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Básico
+**Tipo:** Automático por inferencia

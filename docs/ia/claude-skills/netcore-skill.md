@@ -176,4 +176,4 @@ string description = shape switch
 
 ## Nivel de aplicación
 
-**Tipo:** Automático por inferencia | **Nivel:** Avanzado | **.NET:** 8+ | **C#:** 12+
+**Tipo:** Automático por inferencia | **.NET:** 8+ | **C#:** 12+

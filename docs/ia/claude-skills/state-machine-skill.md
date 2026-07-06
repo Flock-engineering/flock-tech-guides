@@ -60,4 +60,4 @@ Ejemplos:
 
 ## Nivel de aplicación
 
-**Tipo:** Manual (`/state-machine`) | **Nivel:** Avanzado
+**Tipo:** Manual (`/state-machine`)
