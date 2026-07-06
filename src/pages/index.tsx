@@ -242,6 +242,26 @@ function Sections({motion}: {motion: boolean}) {
   );
 }
 
+function Contribute() {
+  return (
+    <section className={styles.contribute}>
+      <div className={styles.contributeInner}>
+        <span className={styles.sectionsKicker}>Documentación viva</span>
+        <h2 className={styles.sectionsTitle}>¿Cómo contribuir?</h2>
+        <ol className={styles.steps}>
+          <li><span className={styles.stepNum}>1</span> Trabajá sobre la rama <code>dev</code>.</li>
+          <li><span className={styles.stepNum}>2</span> Abrí un PR con tus cambios.</li>
+          <li><span className={styles.stepNum}>3</span> Una vez aprobado, el merge a <code>main</code> deploya automáticamente el sitio.</li>
+        </ol>
+        <p className={styles.contributeNote}>
+          Estas guías se mantienen entre todos: si algo está desactualizado o falta
+          información, abrí un PR con la corrección.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   const reduced = useReducedMotion();
@@ -253,6 +273,7 @@ export default function Home(): ReactNode {
       <main>
         <Hero motion={motion} />
         <Sections motion={motion} />
+        <Contribute />
       </main>
     </Layout>
   );
