@@ -1,12 +1,6 @@
 module.exports = {
   docs: [
     {
-      type: 'doc',
-      id: 'intro',
-      label: 'Introducción',
-      className: 'sidebar-icon-intro',
-    },
-    {
       type: 'category',
       label: 'IA',
       className: 'sidebar-icon-ia',

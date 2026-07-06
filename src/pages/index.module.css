@@ -399,3 +399,56 @@
 @media (prefers-reduced-motion: reduce) {
   .blobA, .blobB, .beamWrap::before { animation: none; }
 }
+
+/* ─── Contribute section ────────────────────────────────────────── */
+.contribute {
+  border-top: 1px solid rgba(139, 61, 184, 0.15);
+  padding: 4rem 1.5rem 5rem;
+}
+.contributeInner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.steps {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+  max-width: 660px;
+}
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.stepNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--flock-orange-dim);
+  color: var(--flock-orange);
+  font-family: var(--flock-display-font);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.contributeNote {
+  margin: 1.8rem 0 0;
+  padding: 1rem 1.2rem;
+  max-width: 660px;
+  border-left: 3px solid var(--flock-orange);
+  background: var(--ifm-background-surface-color);
+  border-radius: 0 var(--ifm-global-radius) var(--ifm-global-radius) 0;
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .contribute { padding: 3rem 1.25rem 3.5rem; }
+}
