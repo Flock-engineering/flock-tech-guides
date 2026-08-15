@@ -284,6 +284,14 @@ module.exports = {
               items: [
                 {
                   type: 'category',
+                  label: 'Flock Design System',
+                  items: [
+                    'ia/claude-skills/flock-design-system-skill',
+                    'ia/claude-skills/flock-design-system-skill-raw',
+                  ],
+                },
+                {
+                  type: 'category',
                   label: 'Algorithmic Art',
                   items: [
                     'ia/claude-skills/algorithmic-art-skill',
