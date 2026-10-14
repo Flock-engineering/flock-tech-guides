@@ -36,6 +36,11 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Design System',
+          items: ['ia/design-system/flock-design-system'],
+        },
+        {
+          type: 'category',
           label: 'Claude Skills',
           items: [
             {
