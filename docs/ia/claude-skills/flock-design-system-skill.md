@@ -8,6 +8,8 @@ sidebar_label: "Flock Design System Skill"
 
 Skill que guía a Claude para construir y estilar **cualquier UI de productos Flock** aplicando el **Flock Design System v1.1**: design tokens, escala tipográfica, spacing, componentes y patrones oficiales. Con esto, todo lo que genere Claude sale con la identidad de marca correcta — sin inventar colores ni tamaños.
 
+¿Querés ver el design system completo, con tokens y componentes en vivo? Mirá el [visor del Flock Design System](../design-system/flock-design-system.md).
+
 :::tip Descargá el skill completo
 Este skill usa **varios archivos** (no alcanza solo el `SKILL.md`). Descargá los tres y guardalos respetando la estructura:
 
